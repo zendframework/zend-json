@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,20 +23,20 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server\SMD;
-use Zend\Json\Server\SMD\Service;
-use Zend\Json\Server;
+namespace ZendTest\JSON\Server\SMD;
+use Zend\JSON\Server\SMD\Service;
+use Zend\JSON\Server;
 
 /**
- * Test class for Zend_Json_Server_Smd_Service
+ * Test class for Zend_JSON_Server_Smd_Service
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -139,14 +139,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals((string) 123, $value);
     }
 
-    public function testEnvelopeShouldBeJsonRpc1CompliantByDefault()
+    public function testEnvelopeShouldBeJSONRpc1CompliantByDefault()
     {
         $this->assertEquals(Server\SMD::ENV_JSONRPC_1, $this->service->getEnvelope());
     }
 
-    public function testEnvelopeShouldOnlyComplyWithJsonRpc1And2()
+    public function testEnvelopeShouldOnlyComplyWithJSONRpc1And2()
     {
-        $this->testEnvelopeShouldBeJsonRpc1CompliantByDefault();
+        $this->testEnvelopeShouldBeJSONRpc1CompliantByDefault();
         $this->service->setEnvelope(Server\SMD::ENV_JSONRPC_2);
         $this->assertEquals(Server\SMD::ENV_JSONRPC_2, $this->service->getEnvelope());
         $this->service->setEnvelope(Server\SMD::ENV_JSONRPC_1);
@@ -304,11 +304,11 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->validateSmdArray($smd);
     }
 
-    public function testTojsonShouldEmitJson()
+    public function testTojsonShouldEmitJSON()
     {
         $this->setupSmdValidationObject();
-        $json = $this->service->toJson();
-        $smd  = \Zend\Json\Json::decode($json);
+        $json = $this->service->toJSON();
+        $smd  = \Zend\JSON\JSON::decode($json);
 
         $this->assertTrue(array_key_exists('foo', $smd));
         $this->assertTrue(is_array($smd['foo']));

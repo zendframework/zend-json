@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,14 +23,14 @@
 /**
  * @namespace
  */
-namespace Zend\Json\Server;
+namespace Zend\JSON\Server;
 
 /**
- * Zend_Json_Server_Cache: cache Zend_Json_Server server definition and SMD
+ * Zend_JSON_Server_Cache: cache Zend_JSON_Server server definition and SMD
  *
  * @uses       \Zend\Server\Cache
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -43,7 +43,7 @@ class Cache extends \Zend\Server\Cache
      * Returns true on success, false on failure
      *
      * @param  string $filename
-     * @param  \Zend\Json\Server\Server $server
+     * @param  \Zend\JSON\Server\Server $server
      * @return boolean
      */
     public static function saveSmd($filename, Server $server)
@@ -54,7 +54,7 @@ class Cache extends \Zend\Server\Cache
             return false;
         }
 
-        if (0 === @file_put_contents($filename, $server->getServiceMap()->toJson())) {
+        if (0 === @file_put_contents($filename, $server->getServiceMap()->toJSON())) {
             return false;
         }
 

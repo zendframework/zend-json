@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -22,24 +22,24 @@
 /**
  * @namespace
  */
-namespace Zend\Json\Server\Request;
+namespace Zend\JSON\Server\Request;
 
-use Zend\Json\Server\Request as JsonRequest;
+use Zend\JSON\Server\Request as JSONRequest;
 
 /**
- * @uses       \Zend\Json\Server\Request\Request
+ * @uses       \Zend\JSON\Server\Request\Request
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class HTTP extends JsonRequest
+class HTTP extends JSONRequest
 {
     /**
      * Raw JSON pulled from POST body
      * @var string
      */
-    protected $_rawJson;
+    protected $_rawJSON;
 
     /**
      * Constructor
@@ -51,9 +51,9 @@ class HTTP extends JsonRequest
     public function __construct()
     {
         $json = file_get_contents('php://input');
-        $this->_rawJson = $json;
+        $this->_rawJSON = $json;
         if (!empty($json)) {
-            $this->loadJson($json);
+            $this->loadJSON($json);
         }
     }
 
@@ -62,8 +62,8 @@ class HTTP extends JsonRequest
      *
      * @return string
      */
-    public function getRawJson()
+    public function getRawJSON()
     {
-        return $this->_rawJson;
+        return $this->_rawJSON;
     }
 }

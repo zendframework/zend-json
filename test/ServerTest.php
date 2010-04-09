@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,22 +23,22 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json;
-use Zend\Json\Server,
-    Zend\Json,
-    Zend\Json\Server\Request,
-    Zend\Json\Server\Response;
+namespace ZendTest\JSON;
+use Zend\JSON\Server,
+    Zend\JSON,
+    Zend\JSON\Server\Request,
+    Zend\JSON\Server\Response;
 
 /**
- * Test class for Zend_Json_Server
+ * Test class for Zend_JSON_Server
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class ServerTest extends \PHPUnit_Framework_TestCase
 {
@@ -80,16 +80,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldBeAbleToBindClassToServer()
     {
-        $this->server->setClass('Zend\Json\Server\Server');
+        $this->server->setClass('Zend\JSON\Server\Server');
         $test = $this->server->getFunctions();
         $this->assertTrue(0 < count($test));
     }
 
     public function testBindingClassToServerShouldRegisterAllPublicMethods()
     {
-        $this->server->setClass('Zend\Json\Server\Server');
+        $this->server->setClass('Zend\JSON\Server\Server');
         $test = $this->server->getFunctions();
-        $methods = get_class_methods('Zend\Json\Server\Server');
+        $methods = get_class_methods('Zend\JSON\Server\Server');
         foreach ($methods as $method) {
             if ('_' == $method[0]) {
                 continue;
@@ -122,23 +122,23 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldBeAbleToBindMultipleClassesAndObjectsToServer()
     {
-        $this->server->setClass('Zend\Json\Server\Server')
-                     ->setClass(new Json\Json());
+        $this->server->setClass('Zend\JSON\Server\Server')
+                     ->setClass(new JSON\JSON());
         $methods = $this->server->getFunctions();
-        $zjsMethods = get_class_methods('Zend\Json\Server\Server');
-        $zjMethods  = get_class_methods('Zend_Json');
+        $zjsMethods = get_class_methods('Zend\JSON\Server\Server');
+        $zjMethods  = get_class_methods('Zend_JSON');
         $this->assertTrue(count($zjsMethods) < count($methods));
         $this->assertTrue(count($zjMethods) < count($methods));
     }
 
     public function testNamingCollisionsShouldResolveToLastRegisteredMethod()
     {
-        $this->server->setClass('Zend\Json\Server\Request')
-                     ->setClass('Zend\Json\Server\Response');
+        $this->server->setClass('Zend\JSON\Server\Request')
+                     ->setClass('Zend\JSON\Server\Response');
         $methods = $this->server->getFunctions();
-        $this->assertTrue($methods->hasMethod('toJson'));
-        $toJson = $methods->getMethod('toJson');
-        $this->assertEquals('Zend\Json\Server\Response', $toJson->getCallback()->getClass());
+        $this->assertTrue($methods->hasMethod('toJSON'));
+        $toJSON = $methods->getMethod('toJSON');
+        $this->assertEquals('Zend\JSON\Server\Response', $toJSON->getCallback()->getClass());
     }
 
     public function testGetRequestShouldInstantiateRequestObjectByDefault()
@@ -199,7 +199,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testShouldBeAbleToRetrieveSmdObject()
     {
         $smd = $this->server->getServiceMap();
-        $this->assertTrue($smd instanceof \Zend\Json\Server\SMD);
+        $this->assertTrue($smd instanceof \Zend\JSON\Server\SMD);
     }
 
     public function testShouldBeAbleToSetArbitrarySmdMetadata()
@@ -222,7 +222,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testSmdObjectRetrievedFromServerShouldReflectServerState()
     {
         $this->server->addFunction('strtolower')
-                     ->setClass('Zend\Json\Server\Server')
+                     ->setClass('Zend\JSON\Server\Server')
                      ->setTransport('POST')
                      ->setEnvelope('JSON-RPC-1.0')
                      ->setContentType('application/x-json')
@@ -241,7 +241,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($services));
         $this->assertTrue(0 < count($services));
         $this->assertTrue(array_key_exists('strtolower', $services));
-        $methods = get_class_methods('Zend\Json\Server\Server');
+        $methods = get_class_methods('Zend\JSON\Server\Server');
         foreach ($methods as $method) {
             if ('_' == $method[0]) {
                 continue;
@@ -252,8 +252,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleValidMethodShouldWork()
     {
-        $this->server->setClass('ZendTest\\Json\\Foo')
-                     ->addFunction('ZendTest\\Json\\FooFunc')
+        $this->server->setClass('ZendTest\\JSON\\Foo')
+                     ->addFunction('ZendTest\\JSON\\FooFunc')
                      ->setAutoEmitResponse(false);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -264,7 +264,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($response->isError());
 
 
-        $request->setMethod('ZendTest\\Json\\FooFunc')
+        $request->setMethod('ZendTest\\JSON\\FooFunc')
                 ->setId('foo');
         $response = $this->server->handle();
         $this->assertTrue($response instanceof Response);
@@ -274,7 +274,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testHandleValidMethodWithTooFewParamsShouldPassDefaultsOrNullsForMissingParams()
     {
         $this->markTestSkipped('Problems with Zend_Server conversion');
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\JSON\Foo')
                      ->setAutoEmitResponse(false);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -293,7 +293,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testHandleValidMethodWithTooManyParamsShouldWork()
     {
         $this->markTestSkipped('Problems with Zend_Server conversion');
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\JSON\Foo')
                      ->setAutoEmitResponse(false);
         $request = $this->server->getRequest();
         $request->setMethod('bar')
@@ -311,7 +311,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleRequestWithErrorsShouldReturnErrorResponse()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\JSON\Foo')
                      ->setAutoEmitResponse(false);
         $response = $this->server->handle();
         $this->assertTrue($response instanceof Response);
@@ -321,7 +321,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleRequestWithInvalidMethodShouldReturnErrorResponse()
     {
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\JSON\Foo')
                      ->setAutoEmitResponse(false);
         $request = $this->server->getRequest();
         $request->setMethod('bogus')
@@ -335,7 +335,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testHandleRequestWithExceptionShouldReturnErrorResponse()
     {
         $this->markTestSkipped('Problems with Zend_Server conversion');
-        $this->server->setClass('ZendTest\Json\Foo')
+        $this->server->setClass('ZendTest\JSON\Foo')
                      ->setAutoEmitResponse(false);
         $request = $this->server->getRequest();
         $request->setMethod('baz')
@@ -350,7 +350,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testHandleShouldEmitResponseByDefault()
     {
         $this->markTestSkipped('Problems with Zend_Server conversion');
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\JSON\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
                 ->setParams(array(true, 'foo', 'bar'))
@@ -359,7 +359,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
         $this->server->handle();
         $buffer = ob_get_clean();
 
-        $decoded = Json\Json::decode($buffer);
+        $decoded = JSON\JSON::decode($buffer);
         $this->assertTrue(is_array($decoded));
         $this->assertTrue(array_key_exists('result', $decoded));
         $this->assertTrue(array_key_exists('id', $decoded));
@@ -372,7 +372,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testResponseShouldBeEmptyWhenRequestHasNoId()
     {
         $this->markTestSkipped('Problems with Zend_Server conversion');
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\JSON\Foo');
         $request = $this->server->getRequest();
         $request->setMethod('bar')
                 ->setParams(array(true, 'foo', 'bar'));
@@ -385,7 +385,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadFunctionsShouldLoadResultOfGetFunctions()
     {
-        $this->server->setClass('ZendTest\Json\Foo');
+        $this->server->setClass('ZendTest\JSON\Foo');
         $functions = $this->server->getFunctions();
         $server = new Server\Server();
         $server->loadFunctions($functions);

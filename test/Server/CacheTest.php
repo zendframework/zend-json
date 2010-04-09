@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,19 +23,19 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server;
-use Zend\Json\Server;
+namespace ZendTest\JSON\Server;
+use Zend\JSON\Server;
 
 /**
- * Test class for Zend_Json_Server_Cache
+ * Test class for Zend_JSON_Server_Cache
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class CacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,7 +49,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->server = new Server\Server();
-        $this->server->setClass('ZendTest\Json\Server\Foo', 'foo');
+        $this->server->setClass('ZendTest\JSON\Server\Foo', 'foo');
         $this->cacheFile = tempnam(sys_get_temp_dir(), 'zjs');
 
         // if (!is_writeable(dirname(__FILE__))) {
@@ -88,7 +88,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     public function testSavedCacheShouldMatchGeneratedCache()
     {
         $this->testSavingSmdCacheShouldReturnTrueOnSuccess();
-        $json = $this->server->getServiceMap()->toJson();
+        $json = $this->server->getServiceMap()->toJSON();
         $test = Server\Cache::getSmd($this->cacheFile);
         $this->assertSame($json, $test);
     }
@@ -135,7 +135,7 @@ class Foo
 }
 
 
-// Call Zend_Json_Server_CacheTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Json_Server_CacheTest::main") {
-    \Zend_Json_Server_CacheTest::main();
+// Call Zend_JSON_Server_CacheTest::main() if this source file is executed directly.
+if (PHPUnit_MAIN_METHOD == "Zend_JSON_Server_CacheTest::main") {
+    \Zend_JSON_Server_CacheTest::main();
 }

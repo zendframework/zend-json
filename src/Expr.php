@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Expr
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,13 +23,13 @@
 /**
  * @namespace
  */
-namespace Zend\Json;
+namespace Zend\JSON;
 
 /**
- * Class for Zend_Json encode method.
+ * Class for Zend_JSON encode method.
  *
  * This class simply holds a string with a native Javascript Expression,
- * so objects | arrays to be encoded with Zend_Json can contain native
+ * so objects | arrays to be encoded with Zend_JSON can contain native
  * Javascript Expressions.
  *
  * Example:
@@ -37,18 +37,18 @@ namespace Zend\Json;
  * $foo = array(
  *     'integer'  =>9,
  *     'string'   =>'test string',
- *     'function' => Zend_Json_Expr(
- *         'function(){ window.alert("javascript function encoded by Zend_Json") }'
+ *     'function' => Zend_JSON_Expr(
+ *         'function(){ window.alert("javascript function encoded by Zend_JSON") }'
  *     ),
  * );
  *
- * Zend_Json::encode($foo, false, array('enableJsonExprFinder' => true));
+ * Zend_JSON::encode($foo, false, array('enableJSONExprFinder' => true));
  * // it will returns json encoded string:
- * // {"integer":9,"string":"test string","function":function(){window.alert("javascript function encoded by Zend_Json")}}
+ * // {"integer":9,"string":"test string","function":function(){window.alert("javascript function encoded by Zend_JSON")}}
  * </code>
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Expr
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License

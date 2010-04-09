@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -22,15 +22,15 @@
 /**
  * @namespace
  */
-namespace Zend\Json;
+namespace Zend\JSON;
 
 /**
  * Encode PHP constructs to JSON
  *
  * @uses       ReflectionClass
- * @uses       \Zend\Json\Exception
+ * @uses       \Zend\JSON\Exception
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -117,7 +117,7 @@ class Encoder
      *
      * @param $value object
      * @return string
-     * @throws \Zend\Json\Exception If recursive checks are enabled and the object has been serialized previously
+     * @throws \Zend\JSON\Exception If recursive checks are enabled and the object has been serialized previously
      */
     protected function _encodeObject(&$value)
     {
@@ -403,7 +403,7 @@ class Encoder
      * @param $package string Optional package name appended to JavaScript
      * proxy class name
      * @return string The class2 (JavaScript) encoding of the class
-     * @throws \Zend\Json\Exception
+     * @throws \Zend\JSON\Exception
      */
     public static function encodeClass($className, $package = '')
     {
@@ -445,7 +445,7 @@ class Encoder
      * Solar Framework by Paul M. Jones
      *
      * @link   http://solarphp.com/
-     * @link   http://svn.solarphp.com/core/trunk/Solar/Json.php
+     * @link   http://svn.solarphp.com/core/trunk/Solar/JSON.php
      * @param  string $value
      * @return string
      */
