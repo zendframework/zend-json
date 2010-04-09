@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,27 +23,27 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server;
-use Zend\Json\Server;
-use Zend\Json;
+namespace ZendTest\JSON\Server;
+use Zend\JSON\Server;
+use Zend\JSON;
 
-// Call Zend_Json_Server_ErrorTest::main() if this source file is executed directly.
+// Call Zend_JSON_Server_ErrorTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Zend_Json_Server_ErrorTest::main");
+    define("PHPUnit_MAIN_METHOD", "Zend_JSON_Server_ErrorTest::main");
 }
 
 
 
 /**
- * Test class for Zend_Json_Server_Error
+ * Test class for Zend_JSON_Server_Error
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class ErrorTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +55,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     public static function main()
     {
 
-        $suite  = new \PHPUnit_Framework_TestSuite("Zend_Json_Server_ErrorTest");
+        $suite  = new \PHPUnit_Framework_TestSuite("Zend_JSON_Server_ErrorTest");
         $result = \PHPUnit_TextUI_TestRunner::run($suite);
     }
 
@@ -148,18 +148,18 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
         $this->validateArray($array);
     }
 
-    public function testShouldBeAbleToCastToJson()
+    public function testShouldBeAbleToCastToJSON()
     {
         $this->setupError();
-        $json = $this->error->toJson();
-        $this->validateArray(Json\Json::decode($json));
+        $json = $this->error->toJSON();
+        $this->validateArray(JSON\JSON::decode($json));
     }
 
-    public function testCastingToStringShouldCastToJson()
+    public function testCastingToStringShouldCastToJSON()
     {
         $this->setupError();
         $json = $this->error->__toString();
-        $this->validateArray(Json\Json::decode($json));
+        $this->validateArray(JSON\JSON::decode($json));
     }
 
     public function setupError()
@@ -186,7 +186,7 @@ class ErrorTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-// Call Zend_Json_Server_ErrorTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Json_Server_ErrorTest::main") {
-    \Zend_Json_Server_ErrorTest::main();
+// Call Zend_JSON_Server_ErrorTest::main() if this source file is executed directly.
+if (PHPUnit_MAIN_METHOD == "Zend_JSON_Server_ErrorTest::main") {
+    \Zend_JSON_Server_ErrorTest::main();
 }

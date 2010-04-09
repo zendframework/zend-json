@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -22,17 +22,17 @@
 /**
  * @namespace
  */
-namespace Zend\Json\Server;
+namespace Zend\JSON\Server;
 
 /**
- * Zend_Json_Server exceptions
+ * Zend_JSON_Server exceptions
  *
- * @uses       \Zend\Json\Exception
- * @package    Zend_Json
+ * @uses       \Zend\JSON\Exception
+ * @package    Zend_JSON
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Exception extends \Zend\Json\Exception
+class Exception extends \Zend\JSON\Exception
 {
 }

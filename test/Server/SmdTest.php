@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,21 +23,21 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server;
-use Zend\Json\Server\SMD,
-    Zend\Json\Server,
-    Zend\Json;
+namespace ZendTest\JSON\Server;
+use Zend\JSON\Server\SMD,
+    Zend\JSON\Server,
+    Zend\JSON;
 
 /**
- * Test class for Zend_Json_Server_Smd
+ * Test class for Zend_JSON_Server_Smd
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class SmdTest extends \PHPUnit_Framework_TestCase
 {
@@ -75,21 +75,21 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testEnvelopeShouldDefaultToJsonRpcVersion1()
+    public function testEnvelopeShouldDefaultToJSONRpcVersion1()
     {
         $this->assertEquals(SMD::ENV_JSONRPC_1, $this->smd->getEnvelope());
     }
 
     public function testEnvelopeAccessorsShouldWorkUnderNormalInput()
     {
-        $this->testEnvelopeShouldDefaultToJsonRpcVersion1();
+        $this->testEnvelopeShouldDefaultToJSONRpcVersion1();
         $this->smd->setEnvelope(SMD::ENV_JSONRPC_2);
         $this->assertEquals(SMD::ENV_JSONRPC_2, $this->smd->getEnvelope());
         $this->smd->setEnvelope(SMD::ENV_JSONRPC_1);
         $this->assertEquals(SMD::ENV_JSONRPC_1, $this->smd->getEnvelope());
     }
 
-    public function testEnvelopeShouldBeLimitedToJsonRpcVersions()
+    public function testEnvelopeShouldBeLimitedToJSONRpcVersions()
     {
         foreach (array('URL', 'PATH', 'JSON') as $env) {
             try {
@@ -101,7 +101,7 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testContentTypeShouldDefaultToApplicationJson()
+    public function testContentTypeShouldDefaultToApplicationJSON()
     {
         $this->assertEquals('application/json', $this->smd->getContentType());
     }
@@ -334,21 +334,21 @@ class SmdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($bar['parameters']));
     }
 
-    public function testShouldBeAbleToRenderAsJson()
+    public function testShouldBeAbleToRenderAsJSON()
     {
         $options = $this->getOptions();
         $this->smd->setOptions($options);
-        $json = $this->smd->toJson();
-        $smd  = Json\Json::decode($json);
+        $json = $this->smd->toJSON();
+        $smd  = JSON\JSON::decode($json);
         $this->validateServiceArray($smd, $options);
     }
 
-    public function testToStringImplementationShouldProxyToJson()
+    public function testToStringImplementationShouldProxyToJSON()
     {
         $options = $this->getOptions();
         $this->smd->setOptions($options);
         $json = $this->smd->__toString();
-        $smd  = Json\Json::decode($json);
+        $smd  = JSON\JSON::decode($json);
         $this->validateServiceArray($smd, $options);
     }
 

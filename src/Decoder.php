@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
@@ -22,16 +22,16 @@
 /**
  * @namespace
  */
-namespace Zend\Json;
+namespace Zend\JSON;
 
 /**
  * Decode JSON encoded string to PHP variable constructs
  *
  * @uses       stdClass
- * @uses       \Zend\Json\Json
- * @uses       \Zend\Json\Exception
+ * @uses       \Zend\JSON\JSON
+ * @uses       \Zend\JSON\Exception
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -93,7 +93,7 @@ class Decoder
      *
      * @param string $source String source to decode
      * @param int $decodeType How objects should be decoded -- see
-     * {@link Zend_Json::TYPE_ARRAY} and {@link Zend_Json::TYPE_OBJECT} for
+     * {@link Zend_JSON::TYPE_ARRAY} and {@link Zend_JSON::TYPE_OBJECT} for
      * valid values
      * @return void
      */
@@ -106,9 +106,9 @@ class Decoder
         $this->_offset       = 0;
 
         // Normalize and set $decodeType
-        if (!in_array($decodeType, array(Json::TYPE_ARRAY, Json::TYPE_OBJECT)))
+        if (!in_array($decodeType, array(JSON::TYPE_ARRAY, JSON::TYPE_OBJECT)))
         {
-            $decodeType = Json::TYPE_ARRAY;
+            $decodeType = JSON::TYPE_ARRAY;
         }
         $this->_decodeType   = $decodeType;
 
@@ -130,21 +130,21 @@ class Decoder
      *         - array of one or more of the above types
      *
      * By default, decoded objects will be returned as associative arrays; to
-     * return a StdClass object instead, pass {@link Zend_Json::TYPE_OBJECT} to
+     * return a StdClass object instead, pass {@link Zend_JSON::TYPE_OBJECT} to
      * the $objectDecodeType parameter.
      *
-     * Throws a Zend_Json_Exception if the source string is null.
+     * Throws a Zend_JSON_Exception if the source string is null.
      *
      * @static
      * @access public
      * @param string $source String to be decoded
      * @param int $objectDecodeType How objects should be decoded; should be
-     * either or {@link Zend_Json::TYPE_ARRAY} or
-     * {@link Zend_Json::TYPE_OBJECT}; defaults to TYPE_ARRAY
+     * either or {@link Zend_JSON::TYPE_ARRAY} or
+     * {@link Zend_JSON::TYPE_OBJECT}; defaults to TYPE_ARRAY
      * @return mixed
-     * @throws \Zend\Json\Exception
+     * @throws \Zend\JSON\Exception
      */
-    public static function decode($source = null, $objectDecodeType = Json::TYPE_ARRAY)
+    public static function decode($source = null, $objectDecodeType = JSON::TYPE_ARRAY)
     {
         if (null === $source) {
             throw new Exception('Must specify JSON encoded source for decoding');
@@ -187,7 +187,7 @@ class Decoder
      * Decodes an object of the form:
      *  { "attribute: value, "attribute2" : value,...}
      *
-     * If Zend_Json_Encoder was used to encode the original object then
+     * If Zend_JSON_Encoder was used to encode the original object then
      * a special attribute called __className which specifies a class
      * name that should wrap the data contained within the encoded source.
      *
@@ -230,14 +230,14 @@ class Decoder
         }
 
         switch ($this->_decodeType) {
-            case Json::TYPE_OBJECT:
+            case JSON::TYPE_OBJECT:
                 // Create new StdClass and populate with $members
                 $result = new \stdClass();
                 foreach ($members as $key => $value) {
                     $result->$key = $value;
                 }
                 break;
-            case Json::TYPE_ARRAY:
+            case JSON::TYPE_ARRAY:
             default:
                 $result = $members;
                 break;
@@ -460,7 +460,7 @@ class Decoder
      * Solar Framework by Paul M. Jones
      *
      * @link   http://solarphp.com/
-     * @link   http://svn.solarphp.com/core/trunk/Solar/Json.php
+     * @link   http://svn.solarphp.com/core/trunk/Solar/JSON.php
      * @param  string $value
      * @return string
      */

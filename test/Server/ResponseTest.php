@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,20 +23,20 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server;
-use Zend\Json\Server,
-    Zend\Json;
+namespace ZendTest\JSON\Server;
+use Zend\JSON\Server,
+    Zend\JSON;
 
 /**
- * Test class for Zend_Json_Server_Response
+ * Test class for Zend_JSON_Server_Response
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +48,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->response = new \Zend\Json\Server\Response();
+        $this->response = new \Zend\JSON\Server\Response();
     }
 
     public function testResultShouldBeNullByDefault()
@@ -109,13 +109,13 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testResponseShouldBeAbleToCastToJson()
+    public function testResponseShouldBeAbleToCastToJSON()
     {
         $this->response->setResult(true)
                        ->setId('foo')
                        ->setVersion('2.0');
-        $json = $this->response->toJson();
-        $test = Json\Json::decode($json);
+        $json = $this->response->toJSON();
+        $test = JSON\JSON::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
@@ -128,7 +128,7 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->response->getVersion(), $test['jsonrpc']);
     }
 
-    public function testResponseShouldCastErrorToJsonIfIsError()
+    public function testResponseShouldCastErrorToJSONIfIsError()
     {
         $error = new Server\Error();
         $error->setCode(Server\Error::ERROR_INTERNAL)
@@ -136,8 +136,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->response->setId('foo')
                        ->setResult(true)
                        ->setError($error);
-        $json = $this->response->toJson();
-        $test = Json\Json::decode($json);
+        $json = $this->response->toJSON();
+        $test = JSON\JSON::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));
@@ -149,12 +149,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($error->getMessage(), $test['error']['message']);
     }
 
-    public function testCastToStringShouldCastToJson()
+    public function testCastToStringShouldCastToJSON()
     {
         $this->response->setResult(true)
                        ->setId('foo');
         $json = $this->response->__toString();
-        $test = Json\Json::decode($json);
+        $test = JSON\JSON::decode($json);
 
         $this->assertTrue(is_array($test));
         $this->assertTrue(array_key_exists('result', $test));

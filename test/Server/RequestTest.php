@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,17 +23,17 @@
 /**
  * @namespace
  */
-namespace ZendTest\Json\Server;
-use Zend\Json;
+namespace ZendTest\JSON\Server;
+use Zend\JSON;
 
 /**
  * @category   Zend
- * @package    Zend_Json_Server
+ * @package    Zend_JSON_Server
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Json
- * @group      Zend_Json_Server
+ * @group      Zend_JSON
+ * @group      Zend_JSON_Server
  */
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,7 +45,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->request = new \Zend\Json\Server\Request();
+        $this->request = new \Zend\JSON\Server\Request();
     }
 
     /**
@@ -190,54 +190,54 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $this->request->getId());
     }
 
-    public function testVersionShouldBeJsonRpcV1ByDefault()
+    public function testVersionShouldBeJSONRpcV1ByDefault()
     {
         $this->assertEquals('1.0', $this->request->getVersion());
     }
 
     public function testVersionShouldBeLimitedToV1AndV2()
     {
-        $this->testVersionShouldBeJsonRpcV1ByDefault();
+        $this->testVersionShouldBeJSONRpcV1ByDefault();
         $this->request->setVersion('2.0');
         $this->assertEquals('2.0', $this->request->getVersion());
         $this->request->setVersion('foo');
         $this->assertEquals('1.0', $this->request->getVersion());
     }
 
-    public function testShouldBeAbleToLoadRequestFromJsonString()
+    public function testShouldBeAbleToLoadRequestFromJSONString()
     {
         $options = $this->getOptions();
-        $json    = Json\Json::encode($options);
-        $this->request->loadJson($json);
+        $json    = JSON\JSON::encode($options);
+        $this->request->loadJSON($json);
 
         $this->assertEquals('foo', $this->request->getMethod());
         $this->assertEquals('foobar', $this->request->getId());
         $this->assertEquals($options['params'], $this->request->getParams());
     }
 
-    public function testLoadingFromJsonShouldSetJsonRpcVersionWhenPresent()
+    public function testLoadingFromJSONShouldSetJSONRpcVersionWhenPresent()
     {
         $options = $this->getOptions();
         $options['jsonrpc'] = '2.0';
-        $json    = Json\Json::encode($options);
-        $this->request->loadJson($json);
+        $json    = JSON\JSON::encode($options);
+        $this->request->loadJSON($json);
         $this->assertEquals('2.0', $this->request->getVersion());
     }
 
-    public function testShouldBeAbleToCastToJson()
+    public function testShouldBeAbleToCastToJSON()
     {
         $options = $this->getOptions();
         $this->request->setOptions($options);
-        $json    = $this->request->toJson();
-        $this->validateJson($json, $options);
+        $json    = $this->request->toJSON();
+        $this->validateJSON($json, $options);
     }
 
-    public function testCastingToStringShouldCastToJson()
+    public function testCastingToStringShouldCastToJSON()
     {
         $options = $this->getOptions();
         $this->request->setOptions($options);
         $json    = $this->request->__toString();
-        $this->validateJson($json, $options);
+        $this->validateJSON($json, $options);
     }
 
     /**
@@ -262,9 +262,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function validateJson($json, array $options)
+    public function validateJSON($json, array $options)
     {
-        $test = Json\Json::decode($json);
+        $test = JSON\JSON::decode($json);
         $this->assertTrue(is_array($test), var_export($json, 1));
 
         $this->assertTrue(array_key_exists('id', $test));

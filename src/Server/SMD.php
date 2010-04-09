@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -23,14 +23,14 @@
 /**
  * @namespace
  */
-namespace Zend\Json\Server;
+namespace Zend\JSON\Server;
 
 /**
- * @uses       Zend\Json\Json
- * @uses       Zend\Json\Server\Exception
- * @uses       Zend\Json\Server\SMD\Service
+ * @uses       Zend\JSON\JSON
+ * @uses       Zend\JSON\Server\Exception
+ * @uses       Zend\JSON\Server\SMD\Service
  * @category   Zend
- * @package    Zend_Json
+ * @package    Zend_JSON
  * @subpackage Server
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -114,7 +114,7 @@ class SMD
      * Set object state via options
      *
      * @param  array $options
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setOptions(array $options)
     {
@@ -132,7 +132,7 @@ class SMD
      * Set transport
      *
      * @param  string $transport
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setTransport($transport)
     {
@@ -157,7 +157,7 @@ class SMD
      * Set envelope
      *
      * @param  string $envelopeType
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setEnvelope($envelopeType)
     {
@@ -183,7 +183,7 @@ class SMD
      * Set content type
      *
      * @param  string $type
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setContentType($type)
     {
@@ -208,7 +208,7 @@ class SMD
      * Set service target
      *
      * @param  string $target
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setTarget($target)
     {
@@ -230,7 +230,7 @@ class SMD
      * Set service ID
      *
      * @param  string $Id
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setId($id)
     {
@@ -252,7 +252,7 @@ class SMD
      * Set service description
      *
      * @param  string $description
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setDescription($description)
     {
@@ -274,7 +274,7 @@ class SMD
      * Indicate whether or not to generate Dojo-compatible SMD
      *
      * @param  bool $flag
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setDojoCompatible($flag)
     {
@@ -295,7 +295,7 @@ class SMD
     /**
      * Add Service
      *
-     * @param Zend\Json\Server\SMD\Service|array $service
+     * @param Zend\JSON\Server\SMD\Service|array $service
      * @return void
      */
     public function addService($service)
@@ -320,7 +320,7 @@ class SMD
      * Add many services
      *
      * @param  array $services
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function addServices(array $services)
     {
@@ -334,7 +334,7 @@ class SMD
      * Overwrite existing services with new ones
      *
      * @param  array $services
-     * @return Zend\Json\Server\SMD
+     * @return Zend\JSON\Server\SMD
      */
     public function setServices(array $services)
     {
@@ -346,7 +346,7 @@ class SMD
      * Get service object
      *
      * @param  string $name
-     * @return false|Zend\Json\Server\SMD\Service
+     * @return false|Zend\JSON\Server\SMD\Service
      */
     public function getService($name)
     {
@@ -462,9 +462,9 @@ class SMD
      *
      * @return string
      */
-    public function toJson()
+    public function toJSON()
     {
-        return \Zend\Json\Json::encode($this->toArray());
+        return \Zend\JSON\JSON::encode($this->toArray());
     }
 
     /**
@@ -474,7 +474,7 @@ class SMD
      */
     public function __toString()
     {
-        return $this->toJson();
+        return $this->toJSON();
     }
 }
 
