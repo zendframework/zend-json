@@ -43,8 +43,9 @@ error_reporting( E_ALL | E_STRICT ); // now required for each test suite
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_JSON
  */
-class JSONXMLTest extends \PHPUnit_Framework_TestCase
+class JsonXmlTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * xml2json Test 1
      * It tests the conversion of a contact list xml into JSON format.
@@ -102,25 +103,18 @@ EOT;
         // Hence, set the flag to ignore XML attributes.
         $ignoreXmlAttributes = true;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 1 is NULL");
         // Test for one of the expected fields in the JSON result.
         $this->assertSame("Jane Smith", $phpArray['contacts']['contact'][3]['name'], "The last contact name converted from XML input 1 is not correct");
-    } // End of function testUsingXML1
+    }
 
     /**
      * xml2json Test 2
@@ -158,27 +152,20 @@ EOT;
         // Hence, set the flag NOT to ignore XML attributes.
         $ignoreXmlAttributes = false;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 2 is NULL");
         // Test for one of the expected fields in the JSON result.
         $this->assertSame("Podcasting Hacks", $phpArray['books']['book'][2]['title'], "The last book title converted from XML input 2 is not correct");
         // Test one of the expected XML attributes carried over in the JSON result.
         $this->assertSame("3", $phpArray['books']['book'][2]['@attributes']['id'], "The last id attribute converted from XML input 2 is not correct");
-    } // End of function testUsingXML2
+    }
 
     /**
      * xml2json Test 3
@@ -245,25 +232,18 @@ EOT;
         // Hence, set the flag to ignore XML attributes.
         $ignoreXmlAttributes = true;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 3 is NULL");
         // Test for one of the expected fields in the JSON result.
         $this->assertContains("Homestyle Breakfast", $phpArray['breakfast_menu']['food'][4], "The last breakfast item name converted from XML input 3 is not correct");
-    } // End of function testUsingXML3
+    }
 
     /**
      * xml2json Test 4
@@ -358,20 +338,13 @@ EOT;
         // Hence, set the flag NOT to ignore XML attributes.
         $ignoreXmlAttributes = false;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 4 is NULL");
         // Test for one of the expected fields in the JSON result.
@@ -410,25 +383,18 @@ EOT;
         // Hence, set the flag to ignore XML attributes.
         $ignoreXmlAttributes = true;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 5 is NULL");
         // Test for one of the expected CDATA fields in the JSON result.
         $this->assertContains("Lois & Clark", $phpArray['tvshows']['show'][1]['name'], "The CDATA name converted from XML input 5 is not correct");
-    } // End of function testUsingXML5
+    }
 
     /**
      * xml2json Test 6
@@ -492,27 +458,20 @@ EOT;
         // Hence, set the flag to ignore XML attributes.
         $ignoreXmlAttributes = true;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (\Exception $ex) {
-            ;
-        }
-
-        $this->assertSame($ex, null, "Zend_Json::fromXml returned an exception.");
+        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
 
         // Convert the JSON string into a PHP array.
-        $phpArray = Json\Json::decode($jsonContents);
+        $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
         // Test if it is not a NULL object.
         $this->assertNotNull($phpArray, "JSON result for XML input 6 is NULL");
         // Test for one of the expected fields in the JSON result.
         $this->assertContains("Zend", $phpArray['demo']['framework']['name'], "The framework name field converted from XML input 6 is not correct");
         // Test for one of the expected CDATA fields in the JSON result.
         $this->assertContains('echo getMovies()->asXML();', $phpArray['demo']['listing']['code'], "The CDATA code converted from XML input 6 is not correct");
-    } // End of function testUsingXML6
+    }
 
     /**
      * xml2json Test 7
@@ -542,19 +501,13 @@ EOT;
         // Hence, set the flag to ignore XML attributes.
         $ignoreXmlAttributes = true;
         $jsonContents = "";
-        $ex = null;
 
-        // Convert XNL to JSON now.
+        // Convert XML to JSON now.
         // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Zend_Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (Exception $ex) {
-            ;
-        }
-
-        $this->assertNotSame($ex, null, "Zend_Json::fromXml returned an exception.");
-    } // End of function testUsingXML7
+        $jsonContents = Zend_Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+    }
 */
-} // End of class Zend_JSON_JSONXMLTest
+
+}
 
 
