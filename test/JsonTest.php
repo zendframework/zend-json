@@ -17,7 +17,6 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
  */
 
 /**
@@ -34,7 +33,7 @@ use Zend\Json;
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_JSON
  */
-class JSONTest extends \PHPUnit_Framework_TestCase
+class JsonTest extends \PHPUnit_Framework_TestCase
 {
     private $_originalUseBuiltinEncoderDecoderValue;
 
@@ -216,7 +215,7 @@ class JSONTest extends \PHPUnit_Framework_TestCase
         $array = array('__className' => 'stdClass', 'one' => 1, 'two' => 2);
 
         $encoded = Json\Encoder::encode($value);
-        $this->assertSame($array, Json\Decoder::decode($encoded));
+        $this->assertSame($array, Json\Decoder::decode($encoded, Json\Json::TYPE_ARRAY));
     }
 
     /**
@@ -243,7 +242,7 @@ class JSONTest extends \PHPUnit_Framework_TestCase
     {
         $value = '[{"id":1},{"foo":2}]';
         $expect = array(array('id' => 1), array('foo' => 2));
-        $this->assertEquals($expect, Json\Decoder::decode($value));
+        $this->assertEquals($expect, Json\Decoder::decode($value, Json\Json::TYPE_ARRAY));
     }
 
     /**
@@ -261,7 +260,7 @@ class JSONTest extends \PHPUnit_Framework_TestCase
             346 => array(64, 'francois'),
             21  => array(12, 'paul')
         );
-        $this->assertEquals($expect, Json\Decoder::decode($value));
+        $this->assertEquals($expect, Json\Decoder::decode($value, Json\Json::TYPE_ARRAY));
     }
 
     /**
@@ -272,8 +271,26 @@ class JSONTest extends \PHPUnit_Framework_TestCase
     {
         foreach ($values as $value) {
             $encoded = Json\Encoder::encode($value);
-            $this->assertEquals($value, Json\Decoder::decode($encoded));
+
+            if (is_array($value) || is_object($value)) {
+                $this->assertEquals($this->_toArray($value), Json\Decoder::decode($encoded, Json\Json::TYPE_ARRAY));
+            } else {
+                $this->assertEquals($value, Json\Decoder::decode($encoded));
+            }
         }
+    }
+
+    protected function _toArray($value)
+    {
+        if (!is_array($value) || !is_object($value)) {
+            return $value;
+        }
+
+        $array = array();
+        foreach ((array)$value as $k => $v) {
+            $array[$k] = $this->_toArray($v);
+        }
+        return $array;
     }
 
     /**
@@ -296,44 +313,45 @@ class JSONTest extends \PHPUnit_Framework_TestCase
         $expected = array('data' => array(1, 2, 3, 4));
 
         $json = '{"data":[1,2,3,4' . "\n]}";
-        $this->assertEquals($expected, Json\Decoder::decode($json));
+        $this->assertEquals($expected, Json\Decoder::decode($json, Json\Json::TYPE_ARRAY));
 
         $json = '{"data":[1,2,3,4 ]}';
-        $this->assertEquals($expected, Json\Decoder::decode($json));
+        $this->assertEquals($expected, Json\Decoder::decode($json, Json\Json::TYPE_ARRAY));
     }
 
     /**
-     * Tests for ZF-504
-     *
-     * Three confirmed issues reported:
-     * - encoder improperly encoding empty arrays as structs
-     * - decoder happily decoding clearly borked JSON
-     * - decoder decoding octal values improperly (shouldn't decode them at all, as JSON does not support them)
+     * @group ZF-504
      */
-    public function testZf504()
+    public function testEncodeEmptyArrayAsStruct()
     {
-        $test = array();
-        $this->assertSame('[]', Json\Encoder::encode($test));
+        $this->assertSame('[]', Json\Encoder::encode(array()));
+    }
 
-        try {
-            $json = '[a"],["a],[][]';
-            $test = Json\Decoder::decode($json);
-            $this->fail("Should not be able to decode '$json'");
+    /**
+     * @group ZF-504
+     */
+    public function testDecodeBorkedJsonShouldThrowException1()
+    {
+        $this->setExpectedException('Zend\Json\Exception\RuntimeException');
+        Json\Decoder::decode('[a"],["a],[][]');
+    }
 
-            $json = '[a"],["a]';
-            $test = Json\Decoder::decode($json);
-            $this->fail("Should not be able to decode '$json'");
-        } catch (\Exception $e) {
-            // success
-        }
+    /**
+     * @group ZF-504
+     */
+    public function testDecodeBorkedJsonShouldThrowException2()
+    {
+        $this->setExpectedException('Zend\Json\Exception\RuntimeException');
+        Json\Decoder::decode('[a"],["a]');
+    }
 
-        try {
-            $expected = 010;
-            $test = Json\Decoder::decode('010');
-            $this->fail('Octal values are not supported in JSON notation');
-        } catch (\Exception $e) {
-            // sucess
-        }
+    /**
+     * @group ZF-504
+     */
+    public function testOctalValuesAreNotSupportedInJsonNotation()
+    {
+        $this->setExpectedException('Zend\Json\Exception\RuntimeException');
+        Json\Decoder::decode('010');
     }
 
     /**
@@ -349,18 +367,12 @@ class JSONTest extends \PHPUnit_Framework_TestCase
         $everything['allItems'] = array($item1, $item2) ;
         $everything['currentItem'] = $item1 ;
 
-        try {
-            $encoded = Json\Encoder::encode($everything);
-        } catch (\Exception $e) {
-            $this->fail('Object cycling checks should check for recursion, not duplicate usage of an item');
-        }
+        // should not fail
+        $encoded = Json\Encoder::encode($everything);
 
-        try {
-            $encoded = Json\Encoder::encode($everything, true);
-            $this->fail('Object cycling not allowed when cycleCheck parameter is true');
-        } catch (\Exception $e) {
-            // success
-        }
+        // should fail
+        $this->setExpectedException('Zend\Json\Exception\RecursionException');
+        Json\Encoder::encode($everything, true);
     }
 
     /**
@@ -733,13 +745,14 @@ class JSONTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecodingInvalidJSONShouldRaiseAnException()
     {
-        $this->setExpectedException('Zend\Json\Exception');
+        $this->setExpectedException('Zend\Json\Exception\RuntimeException');
         Json\Json::decode(' some string ');
     }
 
     /**
-     * @group ZF-9416
      * Encoding an iterator using the internal encoder should handle undefined keys
+     *
+     * @group ZF-9416
      */
     public function testIteratorWithoutDefinedKey()
     {
@@ -748,6 +761,17 @@ class JSONTest extends \PHPUnit_Framework_TestCase
         $expectedDecoding = '{"__className":"ArrayIterator",0:"foo"}';
         $this->assertEquals($expectedDecoding, $encoded);
     }
+
+    /**
+     * The default json decode type should be TYPE_OBJECT
+     *
+     * @group ZF-8618
+     */
+    public function testDefaultTypeObject()
+    {
+        $this->assertType('stdClass', Json\Decoder::decode('{"var":"value"}'));
+    }
+
 }
 
 /**
