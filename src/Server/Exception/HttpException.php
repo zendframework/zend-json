@@ -14,21 +14,22 @@
  *
  * @category   Zend
  * @package    Zend_Json
+ * @subpackage Server
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\Json;
+namespace Zend\Json\Server\Exception;
 
 /**
- * @uses       Zend\Exception
+ * Thrown by Zend_Json_Server_Client when an HTTP error occurs during an
+ * JSON-RPC method call.
+ *
  * @category   Zend
  * @package    Zend_Json
+ * @subpackage Server
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
+class HttpException extends RuntimeException
 {}
