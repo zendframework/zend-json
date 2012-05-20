@@ -14,24 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @subpackage Server
+ * @subpackage Exception
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Json\Server\Exception;
-
-use Zend\Json\Exception;
+namespace Zend\Json\Exception;
 
 /**
- * Thrown by Zend\Json\Server\Client when an JSON-RPC fault response is returned.
- *
  * @category   Zend
  * @package    Zend_Json
- * @subpackage Server
+ * @subpackage Exception
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ErrorException extends Exception\BadMethodCallException implements 
+class BadMethodCallException extends \BadMethodCallException implements 
     ExceptionInterface
 {}
