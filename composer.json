@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-json",
-    "description": "Zend\\Json component",
+    "description": "provides convenience methods for serializing native PHP to JSON and decoding JSON to native PHP",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -9,11 +9,11 @@
     "homepage": "https://github.com/zendframework/zend-json",
     "autoload": {
         "psr-4": {
-            "Zend\\Json\\": "src/"
+            "Zend\\Json": "src/"
         }
     },
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.3.3",
         "zendframework/zend-stdlib": "self.version"
     },
     "require-dev": {
