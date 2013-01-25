@@ -8,15 +8,20 @@
  * @package   Zend_Json
  */
 
-namespace Zend\Json\Server\Exception;
-
-use Zend\Json\Exception;
+namespace ZendTest\Json\TestAsset;
 
 /**
- * @category   Zend
- * @package    Zend_Json
- * @subpackage Server
+ * @see ZF-12347
  */
-class RuntimeException extends Exception\RuntimeException implements
-    ExceptionInterface
-{}
+class TestIteratorAggregate implements \IteratorAggregate
+{
+    protected $array = array(
+        'foo' => 'bar',
+        'baz' => 5
+    );
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->array);
+    }
+}
