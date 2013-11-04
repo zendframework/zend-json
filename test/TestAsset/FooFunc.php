@@ -10,17 +10,11 @@
 namespace ZendTest\Json\TestAsset;
 
 /**
- * @see ZF-12347
+ * Test function for JSON-RPC server
+ *
+ * @return bool
  */
-class TestIteratorAggregate implements \IteratorAggregate
+function FooFunc()
 {
-    protected $array = array(
-        'foo' => 'bar',
-        'baz' => 5
-    );
-
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->array);
-    }
+    return true;
 }
