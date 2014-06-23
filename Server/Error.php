@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -19,10 +19,23 @@ class Error
     const ERROR_OTHER           = -32000;
 
     /**
+     * Allowed error codes
+     * @var array
+     */
+    protected $allowedCodes = array(
+        self::ERROR_PARSE,
+        self::ERROR_INVALID_REQUEST,
+        self::ERROR_INVALID_METHOD,
+        self::ERROR_INVALID_PARAMS,
+        self::ERROR_INTERNAL,
+        self::ERROR_OTHER,
+    );
+
+    /**
      * Current code
      * @var int
      */
-    protected $code = self::ERROR_OTHER;
+    protected $code = -32000;
 
     /**
      * Error data
@@ -43,7 +56,7 @@ class Error
      * @param  int $code
      * @param  mixed $data
      */
-    public function __construct($message = null, $code = self::ERROR_OTHER, $data = null)
+    public function __construct($message = null, $code = -32000, $data = null)
     {
         $this->setMessage($message)
              ->setCode($code)
@@ -51,28 +64,21 @@ class Error
     }
 
     /**
-     * Set error code.
-     *
-     * If the error code is 0, it will be set to -32000 (ERROR_OTHER).
+     * Set error code
      *
      * @param  int $code
      * @return \Zend\Json\Server\Error
      */
     public function setCode($code)
     {
-        if (!is_scalar($code) || is_bool($code) || is_float($code)) {
-            return $this;
-        }
-
-        if (is_string($code) && !is_numeric($code)) {
+        if (!is_scalar($code)) {
             return $this;
         }
 
         $code = (int) $code;
-
-        if (0 === $code) {
-            $this->code = self::ERROR_OTHER;
-        } else {
+        if (in_array($code, $this->allowedCodes)) {
+            $this->code = $code;
+        } elseif (in_array($code, range(-32099, -32000))) {
             $this->code = $code;
         }
 

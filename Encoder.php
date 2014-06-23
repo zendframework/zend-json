@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -11,7 +11,6 @@ namespace Zend\Json;
 
 use Iterator;
 use IteratorAggregate;
-use JsonSerializable;
 use ReflectionClass;
 use Zend\Json\Exception\InvalidArgumentException;
 use Zend\Json\Exception\RecursionException;
@@ -66,10 +65,6 @@ class Encoder
     public static function encode($value, $cycleCheck = false, $options = array())
     {
         $encoder = new static(($cycleCheck) ? true : false, $options);
-
-        if ($value instanceof JsonSerializable) {
-            $value = $value->jsonSerialize();
-        }
 
         return $encoder->_encodeValue($value);
     }
@@ -322,6 +317,7 @@ class Encoder
 
             if ('__construct' != $method->getName()) {
                 $parameters  = $method->getParameters();
+                $paramCount  = count($parameters);
                 $argsStarted = false;
 
                 $argNames = "var argNames=[";
@@ -440,7 +436,7 @@ class Encoder
      * Solar Framework by Paul M. Jones
      *
      * @link   http://solarphp.com/
-     * @link   https://github.com/solarphp/core/blob/master/Solar/Json.php
+     * @link   http://svn.solarphp.com/core/trunk/Solar/JSON.php
      * @param  string $value
      * @return string
      */
