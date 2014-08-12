@@ -12,7 +12,6 @@ namespace Zend\Json;
 use SimpleXMLElement;
 use Zend\Json\Exception\RecursionException;
 use Zend\Json\Exception\RuntimeException;
-use ZendXml\Security as XmlSecurity;
 
 /**
  * Class for encoding to and decoding from JSON.
@@ -312,10 +311,10 @@ class Json
     public static function fromXml($xmlStringContents, $ignoreXmlAttributes = true)
     {
         // Load the XML formatted string into a Simple XML Element object.
-        $simpleXmlElementObject = XmlSecurity::scan($xmlStringContents);
+        $simpleXmlElementObject = simplexml_load_string($xmlStringContents);
 
         // If it is not a valid XML content, throw an exception.
-        if (!$simpleXmlElementObject) {
+        if ($simpleXmlElementObject == null) {
             throw new RuntimeException('Function fromXml was called with an invalid XML formatted string.');
         } // End of if ($simpleXmlElementObject == null)
 
@@ -370,12 +369,10 @@ class Json
             } else {
                 $result .= ($inLiteral ?  '' : $prefix) . $token;
 
-                //remove escaped backslash sequences causing false positives in next check
-                $token = str_replace('\\', '', $token);
                 // Count # of unescaped double-quotes in token, subtract # of
                 // escaped double-quotes and if the result is odd then we are
                 // inside a string literal
-                if ((substr_count($token, '"')-substr_count($token, '\\"')) % 2 != 0) {
+                if ((substr_count($token, "\"")-substr_count($token, "\\\"")) % 2 != 0) {
                     $inLiteral = !$inLiteral;
                 }
             }

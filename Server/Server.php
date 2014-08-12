@@ -361,32 +361,15 @@ class Server extends AbstractServer
      */
     protected function _getDefaultParams(array $args, array $params)
     {
-        if (false === $this->isAssociative($args)) {
-            $params = array_slice($params, count($args));
-        }
-
-        foreach ($params as $param) {
-            if (isset($args[$param['name']]) || !array_key_exists('default', $param)) {
-                continue;
+        $defaultParams = array_slice($params, count($args));
+        foreach ($defaultParams as $param) {
+            $value = null;
+            if (array_key_exists('default', $param)) {
+                $value = $param['default'];
             }
-
-            $args[$param['name']] = $param['default'];
+            $args[$param['name']] = $value;
         }
-
         return $args;
-    }
-
-    /**
-     * check whether array is associative or not
-     *
-     * @param array $array
-     * @return bool
-     */
-    private function isAssociative(array $array)
-    {
-        $keys = array_keys($array);
-
-        return ($keys != array_keys($keys));
     }
 
     /**
@@ -501,7 +484,7 @@ class Server extends AbstractServer
     {
         $request = $this->getRequest();
 
-        if ($request->isParseError()) {
+        if($request->isParseError()){
             return $this->fault('Parse error', Error::ERROR_PARSE);
         }
 
