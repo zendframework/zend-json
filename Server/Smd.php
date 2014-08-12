@@ -373,12 +373,11 @@ class Smd
             return $this->toDojoArray();
         }
 
-        $description = $this->getDescription();
         $transport   = $this->getTransport();
         $envelope    = $this->getEnvelope();
         $contentType = $this->getContentType();
         $SMDVersion  = static::SMD_VERSION;
-        $service = compact('transport', 'envelope', 'contentType', 'SMDVersion', 'description');
+        $service = compact('transport', 'envelope', 'contentType', 'SMDVersion');
 
         if (null !== ($target = $this->getTarget())) {
             $service['target']     = $target;
