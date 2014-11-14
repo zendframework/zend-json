@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-json",
-    "description": "provides convenience methods for serializing native PHP to JSON and decoding JSON to native PHP",
+    "description": "Zend\\Json component",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -30,8 +30,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3-dev",
-            "dev-develop": "2.4-dev"
+            "dev-master": "2.4-dev",
+            "dev-develop": "2.5-dev"
         }
     },
     "autoload-dev": {
