@@ -112,9 +112,12 @@ class Encoder
     {
         if ($this->cycleCheck) {
             if ($this->_wasVisited($value)) {
+
                 if (isset($this->options['silenceCyclicalExceptions'])
                     && $this->options['silenceCyclicalExceptions']===true) {
+
                     return '"* RECURSION (' . str_replace('\\', '\\\\', get_class($value)) . ') *"';
+
                 } else {
                     throw new RecursionException(
                         'Cycles not supported in JSON encoding, cycle introduced by '
@@ -521,7 +524,7 @@ class Encoder
         }
 
         return $ascii;
-    }
+     }
 
     /**
      * Convert a string from one UTF-8 char to one UTF-16 char.

@@ -18,6 +18,7 @@ use Zend\Json\Exception\RuntimeException;
  */
 class Decoder
 {
+
     /**
      * Parse tokens used to decode the JSON object. These are not
      * for public consumption, they are just used internally to the
@@ -346,7 +347,8 @@ class Decoder
                 $matches,
                 PREG_OFFSET_CAPTURE,
                 $this->offset)
-            && $matches[0][1] == $this->offset) {
+            && $matches[0][1] == $this->offset)
+        {
             $this->offset += strlen($matches[0][0]);
         }
     }
@@ -482,6 +484,7 @@ class Decoder
         if ($chr == '-' || $chr == '.' || ($chr >= '0' && $chr <= '9')) {
             if (preg_match('/-?([0-9])*(\.[0-9]*)?((e|E)((-|\+)?)[0-9]+)?/s',
                 $str, $matches, PREG_OFFSET_CAPTURE, $start) && $matches[0][1] == $start) {
+
                 $datum = $matches[0][0];
 
                 if (is_numeric($datum)) {

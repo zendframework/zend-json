@@ -162,7 +162,7 @@ class Json
     protected static function _recursiveJsonExprFinder(
         &$value, array &$javascriptExpressions, $currentKey = null
     ) {
-        if ($value instanceof Expr) {
+         if ($value instanceof Expr) {
             // TODO: Optimize with ascii keys, if performance is bad
             $magicKey = "____" . $currentKey . "_" . (count($javascriptExpressions));
             $javascriptExpressions[] = array(
@@ -285,6 +285,7 @@ class Json
     }
 
     /**
+     * @deprecated see https://github.com/zendframework/zf2/pull/6778
      * fromXml - Converts XML to JSON
      *
      * Converts a XML formatted string into a JSON formatted string.
@@ -352,9 +353,7 @@ class Json
 
         $inLiteral = false;
         foreach ($tokens as $token) {
-            if ($token == "") {
-                continue;
-            }
+            if ($token == "") continue;
 
             $prefix = str_repeat($ind, $indent);
             if (!$inLiteral && ($token == "{" || $token == "[")) {
@@ -383,5 +382,5 @@ class Json
             }
         }
         return $result;
-    }
+   }
 }
