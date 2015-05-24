@@ -28,6 +28,8 @@
         "zendframework/zend-server": "Zend\\Server component",
         "zendframework/zendxml": "To support Zend\\Json\\Json::fromXml() usage"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "branch-alias": {
             "dev-master": "2.4-dev",
