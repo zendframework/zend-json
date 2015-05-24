@@ -19,7 +19,7 @@
     "require-dev": {
         "zendframework/zend-http": "~2.4",
         "zendframework/zend-server": "~2.4",
-        "zendframework/zendxml": "~2.4",
+        "zendframework/zendxml": "~1.0",
         "fabpot/php-cs-fixer": "1.7.*",
         "satooshi/php-coveralls": "dev-master",
         "phpunit/PHPUnit": "~4.0"
