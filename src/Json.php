@@ -134,7 +134,7 @@ class Json
         }
 
         if ($prettyPrint) {
-            $encodedResult = self::prettyPrint($encodedResult, ["intent" => "    "]);
+            $encodedResult = self::prettyPrint($encodedResult, ["indent" => "    "]);
         }
 
         //only do post-processing to revert back the Zend\Json\Expr if any.
