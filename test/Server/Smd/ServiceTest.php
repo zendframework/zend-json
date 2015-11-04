@@ -17,6 +17,7 @@ use Zend\Json\Server;
  *
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
+ * @covers  Zend\Json\Server\Smd\Service<extended>
  */
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {

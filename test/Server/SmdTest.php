@@ -19,6 +19,7 @@ use Zend\Json;
  *
  * @group      Zend_Json
  * @group      Zend_Json_Server
+ * @covers  Zend\Json\Server\SMD<extended>
  */
 class SmdTest extends \PHPUnit_Framework_TestCase
 {

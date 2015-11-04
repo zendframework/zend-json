@@ -16,6 +16,7 @@ use Zend\Json\Server;
  *
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
+ * @covers  Zend\Json\Server\Cache<extended>
  */
 class CacheTest extends \PHPUnit_Framework_TestCase
 {

@@ -14,6 +14,7 @@ use Zend\Json;
 /**
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
+ * @covers  Zend\Json\Server\Request<extended>
  */
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
