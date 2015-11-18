@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.6.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#5](https://github.com/zendframework/zend-json/pull/5) removes
+  zendframework/zend-stdlib as a required dependency, marking it instead
+  optional, as it is only used for the `Server` subcomponent.
+
+### Fixed
+
+- Nothing.
+
 ## 2.5.3 - TBD
 
 ### Added
