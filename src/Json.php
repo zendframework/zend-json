@@ -103,6 +103,8 @@ class Json
                 return $valueToEncode->toJson();
             } elseif (method_exists($valueToEncode, 'toArray')) {
                 return static::encode($valueToEncode->toArray(), $cycleCheck, $options);
+            } elseif ($valueToEncode instanceof ArrayIterator) {
+                return static::encode($valueToEncode->getArrayCopy(), $cycleCheck, $options);
             }
         }
 
