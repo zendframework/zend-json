@@ -352,10 +352,10 @@ the overall SMD to which the service is attached).
 - `addParam($type, array $options = array(), $order = null)`: Add a parameter to the service. By
 default, only the parameter type is necessary. However, you may also specify the order, as well as
 options such as:
-- **name**: the parameter name
-- **optional**: whether or not the parameter is optional
-- **default**: a default value for the parameter
-- **description**: text describing the parameter
+    - **name**: the parameter name
+    - **optional**: whether or not the parameter is optional
+    - **default**: a default value for the parameter
+    - **description**: text describing the parameter
 - `addParams(array $params)`: Add several parameters at once; each param should be an assoc array
 containing minimally the key 'type' describing the parameter type, and optionally the key 'order';
 any other keys will be passed as `$options` to `addOption()`.
