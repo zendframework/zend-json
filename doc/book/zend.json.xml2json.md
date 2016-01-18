@@ -92,7 +92,3 @@ present in the *XML* input string.
    ]}
 }
 ```
-
-More details about this xml2json feature can be found in the original proposal itself. Take a look
-at the [Zend\_xml2json
-proposal](http://framework.zend.com/wiki/display/ZFPROP/Zend_xml2json+-+Senthil+Nathan).
