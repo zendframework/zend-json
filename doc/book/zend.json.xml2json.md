@@ -35,7 +35,7 @@ present in the *XML* input string.
 
 *XML* input string passed to `Zend\Json\Json::fromXml()` function:
 
-```php
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <books>
     <book id="1">
@@ -60,7 +60,7 @@ present in the *XML* input string.
 
 *JSON* output string returned from `Zend\Json\Json::fromXml()` function:
 
-```php
+```json
 {
    "books" : {
       "book" : [ {
