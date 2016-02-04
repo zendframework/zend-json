@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.1 - TBD
+## 2.6.1 - 2016-02-04
 
 ### Added
 
@@ -36,7 +36,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#18](https://github.com/zendframework/zend-json/pull/18) updates dependencies
+  to allow usage on PHP 7, as well as with zend-stdlib v3.
 
 ## 2.6.0 - 2015-11-18
 
