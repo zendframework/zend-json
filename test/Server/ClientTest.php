@@ -18,6 +18,7 @@ use Zend\Json\Server\Response;
 
 /**
  * @group      Zend_XmlRpc
+ * @covers  Zend\Json\Server\Client<extended>
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {

@@ -21,6 +21,7 @@ require_once __DIR__ . '/TestAsset/FooFunc.php';
  *
  * @group      Zend_JSON
  * @group      Zend_JSON_Server
+ * @covers  Zend\Json\Server\Server<extended>
  */
 class ServerTest extends \PHPUnit_Framework_TestCase
 {
