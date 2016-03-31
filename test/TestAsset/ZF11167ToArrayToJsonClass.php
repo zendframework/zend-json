@@ -5,8 +5,17 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Json\Exception;
+namespace ZendTest\Json\TestAsset;
 
-class RuntimeException extends \RuntimeException implements ExceptionInterface
+use Zend\Json\Json;
+
+/**
+ * Serializable class exposing both toArray() and toJson() methods.
+ */
+class ZF11167ToArrayToJsonClass extends ZF11167ToArrayClass
 {
+    public function toJson()
+    {
+        return Json::encode('bogus');
+    }
 }

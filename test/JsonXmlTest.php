@@ -1,39 +1,18 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @link      http://github.com/zendframework/zend-json for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Json;
 
+use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Json;
 
-error_reporting(E_ALL | E_STRICT); // now required for each test suite
-
-/**
- * Zend_JSON
- */
-
-/**
- * PHPUnit test case
- */
-
-/**
- * @group      Zend_JSON
- */
-class JsonXmlTest extends \PHPUnit_Framework_TestCase
+class JsonXmlTest extends TestCase
 {
-    /**
-     * xml2json Test 1
-     * It tests the conversion of a contact list xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing an array of child elements.
-     *
-     */
-    public function testUsingXML1()
+    public function testXmlToJsonWithXMLContainingOnlyChildElements()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -79,31 +58,25 @@ class JsonXmlTest extends \PHPUnit_Framework_TestCase
 
 EOT;
 
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = true;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // There are no XML attributes in this test XML, so passing boolean
+        // true to the second argument, allowing them to be ignored.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, true);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
+
         // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 1 is NULL");
+        $this->assertNotNull($phpArray, 'Received null value when converting XML with child elements');
+
         // Test for one of the expected fields in the JSON result.
-        $this->assertSame("Jane Smith", $phpArray['contacts']['contact'][3]['name'], "The last contact name converted from XML input 1 is not correct");
+        $this->assertSame(
+            'Jane Smith',
+            $phpArray['contacts']['contact'][3]['name'],
+            'The last contact name converted from XML input 1 is not correct'
+        );
     }
 
-    /**
-     * xml2json Test 2
-     * It tests the conversion of book publication xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing an array of child elements with XML attributes.
-     *
-     */
-    public function testUsingXML2()
+    public function testXmlToJsonWithXmlContainingAttributes()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -128,33 +101,32 @@ EOT;
 
 EOT;
 
-        // There are going to be XML attributes in this test XML.
-        // Hence, set the flag NOT to ignore XML attributes.
-        $ignoreXmlAttributes = false;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // There ARE XML attributes in this test XML, so passing boolean
+        // false to the second argument, specifying they should be returned.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, false);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
+
         // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 2 is NULL");
+        $this->assertNotNull($phpArray, 'Received null value when converting XML with child elements and attributes');
+
         // Test for one of the expected fields in the JSON result.
-        $this->assertSame("Podcasting Hacks", $phpArray['books']['book'][2]['title'], "The last book title converted from XML input 2 is not correct");
+        $this->assertSame(
+            'Podcasting Hacks',
+            $phpArray['books']['book'][2]['title'],
+            'The last book title converted is incorrect'
+        );
+
         // Test one of the expected XML attributes carried over in the JSON result.
-        $this->assertSame("3", $phpArray['books']['book'][2]['@attributes']['id'], "The last id attribute converted from XML input 2 is not correct");
+        $this->assertSame(
+            '3',
+            $phpArray['books']['book'][2]['@attributes']['id'],
+            'The last id attribute converted from XML is incorrect'
+        );
     }
 
-    /**
-     * xml2json Test 3
-     * It tests the conversion of food menu xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing an array of child elements.
-     *
-     */
-    public function testUsingXML3()
+    public function testXmlToJsonWithXmlContainingNestedChildren()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -205,35 +177,29 @@ EOT;
         <calories>950</calories>
     </food>
 </breakfast_menu>
-
 EOT;
 
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = true;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // No attributes in the XML, so safe to ignore attributes in the
+        // conversion.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, true);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
+
         // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 3 is NULL");
+        $this->assertNotNull($phpArray, 'NULL result received when converting XML with nested children');
+
         // Test for one of the expected fields in the JSON result.
-        $this->assertContains("Homestyle Breakfast", $phpArray['breakfast_menu']['food'][4], "The last breakfast item name converted from XML input 3 is not correct");
+        $this->assertContains(
+            'Homestyle Breakfast',
+            $phpArray['breakfast_menu']['food'][4],
+            'The last breakfast item name converted from XML is incorrect'
+        );
     }
 
-    /**
-     * xml2json Test 4
-     * It tests the conversion of RosettaNet purchase order xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing an array of child elements and multiple attributes.
-     *
-     */
-    public function testUsingXML4()
+    public function testXmlToJsonWithXmlContainingChildElementsAndMultipleAttributes()
     {
+        // @codingStandardsIgnoreStart
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
 <?xml version="1.0" encoding="UTF-8"?>
@@ -311,38 +277,47 @@ EOT;
         </Vendor>
     </Item>
 </PurchaseRequisition>
-
 EOT;
+        // @codingStandardsIgnoreEnd
 
-        // There are going to be XML attributes in this test XML.
-        // Hence, set the flag NOT to ignore XML attributes.
-        $ignoreXmlAttributes = false;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // Attributes are expected in converted JSON.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, false);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
-        // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 4 is NULL");
-        // Test for one of the expected fields in the JSON result.
-        $this->assertContains("98-765-4321", $phpArray['PurchaseRequisition']['Item']['Vendor'], "The vendor id converted from XML input 4 is not correct");
-        // Test for the presence of multiple XML attributes present that were carried over in the JSON result.
-        $this->assertContains("UNSPSC", $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'], "The type attribute converted from XML input 4 is not correct");
-        $this->assertContains("32121501", $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'], "The value attribute converted from XML input 4 is not correct");
-        $this->assertContains("Fixed capacitors", $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'], "The name attribute converted from XML input 4 is not correct");
-    } // End of function testUsingXML4
 
-    /**
-     * xml2json Test 5
-     * It tests the conversion of TV shows xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing simple CDATA.
-     *
-     */
-    public function testUsingXML5()
+        // Test if it is not a NULL object.
+        $this->assertNotNull(
+            $phpArray,
+            'Null received when converting XML with nested children and multiple attributes'
+        );
+
+        // Test for one of the expected fields in the JSON result.
+        $this->assertContains(
+            '98-765-4321',
+            $phpArray['PurchaseRequisition']['Item']['Vendor'],
+            'The vendor id converted from XML is incorrect'
+        );
+
+        // Test for the presence of multiple XML attributes in the resultant JSON.
+        $this->assertContains(
+            'UNSPSC',
+            $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'],
+            'The type attribute converted from XML is incorrect'
+        );
+        $this->assertContains(
+            '32121501',
+            $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'],
+            'The value attribute converted from XML is incorrect'
+        );
+        $this->assertContains(
+            'Fixed capacitors',
+            $phpArray['PurchaseRequisition']['Item']['Specification']['Category']['@attributes'],
+            'The name attribute converted from XML is incorrect'
+        );
+    }
+
+    public function testXmlToJsonWithXmlContainingInlineCDATA()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -356,34 +331,26 @@ EOT;
         <name><![CDATA[Lois & Clark]]></name>
     </show>
 </tvshows>
-
 EOT;
 
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = true;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // No attributes to convert.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, false);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
+
         // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 5 is NULL");
+        $this->assertNotNull($phpArray, 'Null result received for XML containing inline CDATA');
+
         // Test for one of the expected CDATA fields in the JSON result.
-        $this->assertContains("Lois & Clark", $phpArray['tvshows']['show'][1]['name'], "The CDATA name converted from XML input 5 is not correct");
+        $this->assertContains(
+            'Lois & Clark',
+            $phpArray['tvshows']['show'][1]['name'],
+            'The CDATA name converted from XML is incorrect'
+        );
     }
 
-    /**
-     * xml2json Test 6
-     * It tests the conversion of demo application xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing a large CDATA.
-     *
-     */
-    public function testUsingXML6()
+    public function testXmlToJsonWithXmlContainingMultilineCDATA()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -434,64 +401,34 @@ echo getMovies()->asXML();
 
 EOT;
 
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = true;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
+        // No attributes to convert.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, true);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
+
         // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 6 is NULL");
+        $this->assertNotNull($phpArray, 'Null result received for XML containing multiline CDATA');
+
         // Test for one of the expected fields in the JSON result.
-        $this->assertContains("Zend", $phpArray['demo']['framework']['name'], "The framework name field converted from XML input 6 is not correct");
+        $this->assertContains(
+            'Zend',
+            $phpArray['demo']['framework']['name'],
+            'The framework name field converted from XML is incorrect'
+        );
+
         // Test for one of the expected CDATA fields in the JSON result.
-        $this->assertContains('echo getMovies()->asXML();', $phpArray['demo']['listing']['code'], "The CDATA code converted from XML input 6 is not correct");
+        $this->assertContains(
+            'echo getMovies()->asXML();',
+            $phpArray['demo']['listing']['code'],
+            'The CDATA code converted from XML is incorrect'
+        );
     }
-
-    /**
-     * xml2json Test 7
-     * It tests the conversion of an invalid xml into JSON format.
-     *
-     * XML characteristic to be tested: XML containing invalid syntax.
-     *
-     */
-/*
-    public function testUsingXML7()
-    {
-        // Set the XML contents that will be tested here.
-        $xmlStringContents = <<<EOT
-This is an invalid XML file.
-Use this file to test the xml2json feature in the Zend_JSON class.
-Since it is an invalid XML file, an appropriate exception should be
-thrown by the Zend_Json::fromXml function.
-<?xml version="1.0"?>
-<invalidxml>
-        </code>
-    </listing>
-</invalidxml>
-
-EOT;
-
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = true;
-        $jsonContents = "";
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        $jsonContents = Zend_Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-    }
-*/
 
     /**
      *  @group ZF-3257
      */
-    public function testUsingXML8()
+    public function testXmlToJsonWithXmlContainingSelfClosingElement()
     {
         // Set the XML contents that will be tested here.
         $xmlStringContents = <<<EOT
@@ -500,28 +437,17 @@ EOT;
 
 EOT;
 
-        // There are not going to be any XML attributes in this test XML.
-        // Hence, set the flag to ignore XML attributes.
-        $ignoreXmlAttributes = false;
-        $jsonContents = "";
-        $ex = null;
-
-        // Convert XML to JSON now.
-        // fromXml function simply takes a String containing XML contents as input.
-        try {
-            $jsonContents = Json\Json::fromXml($xmlStringContents, $ignoreXmlAttributes);
-        } catch (Exception $ex) {
-            ;
-        }
-        $this->assertSame($ex, null, "Zend_JSON::fromXml returned an exception.");
+        // We want to convert attributes.
+        $jsonContents = Json\Json::fromXml($xmlStringContents, false);
 
         // Convert the JSON string into a PHP array.
         $phpArray = Json\Json::decode($jsonContents, Json\Json::TYPE_ARRAY);
-        // Test if it is not a NULL object.
-        $this->assertNotNull($phpArray, "JSON result for XML input 1 is NULL");
 
-        $this->assertSame("bar", $phpArray['a']['@text'], "The text element of a is not correct");
-        $this->assertSame("foo", $phpArray['a']['b']['@attributes']['id'], "The id attribute of b is not correct");
+        // Test if it is not a NULL object.
+        $this->assertNotNull($phpArray, 'Null result resceived for XML containing self-closing element');
+
+        $this->assertSame('bar', $phpArray['a']['@text'], 'The text element of a is incorrect');
+        $this->assertSame('foo', $phpArray['a']['b']['@attributes']['id'], 'The id attribute of b is incorrect');
     }
 
     /**
