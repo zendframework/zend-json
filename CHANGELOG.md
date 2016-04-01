@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.0 - TBD
+## 3.0.0 - 2016-03-31
 
 ### Added
 
@@ -29,24 +29,6 @@ All notable changes to this project will be documented in this file, in reverse 
   on zendframework/zendxml, zendframework/zend-stdlib,
   zendframework/zend-server, and zendframework-zend-http, due to the above
   listed component extractions.
-
-### Fixed
-
-- Nothing.
-
-## 2.6.2 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
