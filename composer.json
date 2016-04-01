@@ -21,6 +21,10 @@
         "squizlabs/php_codesniffer": "^2.3",
         "phpunit/PHPUnit": "~4.0"
     },
+    "suggest": {
+        "zendframework/zend-json-server": "For implementing JSON-RPC servers",
+        "zendframework/zend-xml2json": "For converting XML documents to JSON"
+    },
     "autoload": {
         "psr-4": {
             "Zend\\Json\\": "src/"
