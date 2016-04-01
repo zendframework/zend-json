@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#21](https://github.com/zendframework/zend-json/pull/21) adds documentation
+  and publishes it to https://zendframework.github.io/zend-json/
 
 ### Deprecated
 
@@ -14,7 +15,20 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#20](https://github.com/zendframework/zend-json/pull/20) removes the
+  `Zend\Json\Server` subcomponent, which has been extracted to
+  [zend-json-server](https://zendframework.github.io/zend-json-server/).
+  If you use that functionality, install the new component.
+- [#21](https://github.com/zendframework/zend-json/pull/21) removes the
+  `Zend\Json\Json::fromXml()` functionality, which has been extracted to
+  [zend-xml2json](https://zendframework.github.io/zend-xml2json/). If you used
+  this functionality, you will need to install the new package, and rewrite
+  calls to `Zend\Json\Json::fromXml()` to `Zend\Xml2Json\Xml2Json::fromXml()`.
+- [#20](https://github.com/zendframework/zend-json/pull/20) and
+  [#21](https://github.com/zendframework/zend-json/pull/21) removes dependencies
+  on zendframework/zendxml, zendframework/zend-stdlib,
+  zendframework/zend-server, and zendframework-zend-http, due to the above
+  listed component extractions.
 
 ### Fixed
 
