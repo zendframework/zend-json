@@ -1,13 +1,13 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @link      http://github.com/zendframework/zend-json for the canonical source repository
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Json\TestAsset;
+
+use Exception;
 
 class Bar
 {
@@ -17,6 +17,7 @@ class Bar
     {
         $this->val = $someval;
     }
+
     /**
      * Bar
      *
@@ -27,16 +28,17 @@ class Bar
      */
     public function foo($one, $two = 'two', $three = null)
     {
-        return array($one, $two, $three, $this->val);
+        return [$one, $two, $three, $this->val];
     }
 
     /**
      * Baz
      *
      * @return void
+     * @throws Exception
      */
     public function baz()
     {
-        throw new \Exception('application error');
+        throw new Exception('application error');
     }
 }

@@ -5,8 +5,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Json\Exception;
+namespace ZendTest\Json\TestAsset;
 
-class RuntimeException extends \RuntimeException implements ExceptionInterface
+/**
+ * Test item for use with ZendTest\Json\JsonTest::testZf461() and testZf4053()
+ */
+class Item
 {
 }
