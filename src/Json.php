@@ -7,7 +7,6 @@
 
 namespace Zend\Json;
 
-use SimpleXMLElement;
 use SplQueue;
 use Zend\Json\Exception\RuntimeException;
 
