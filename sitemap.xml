@@ -3,16 +3,16 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-07-05</lastmod>
+     <loc>/</loc>
+     <lastmod>2017-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>None/intro/</loc>
-     <lastmod>2016-07-05</lastmod>
+     <loc>/intro/</loc>
+     <lastmod>2017-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,14 +20,14 @@
     
         
     <url>
-     <loc>None/basics/</loc>
-     <lastmod>2016-07-05</lastmod>
+     <loc>/basics/</loc>
+     <lastmod>2017-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/advanced/</loc>
-     <lastmod>2016-07-05</lastmod>
+     <loc>/advanced/</loc>
+     <lastmod>2017-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -36,8 +36,8 @@
     
         
     <url>
-     <loc>None/migration/v2-to-v3/</loc>
-     <lastmod>2016-07-05</lastmod>
+     <loc>/migration/v2-to-v3/</loc>
+     <lastmod>2017-07-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

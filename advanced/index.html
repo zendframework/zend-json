@@ -210,7 +210,6 @@ the second argument to <code>decode()</code>:</p>
 <pre class="codehilite"><code class="language-php">// Decode JSON objects as PHP array
 $phpNative = Zend\Json\Json::decode($encodedValue, Zend\Json\Json::TYPE_ARRAY);</code></pre>
 
-
 <p>Any objects thus decoded are returned as associative arrays with keys and values
 corresponding to the key/value pairs in the JSON notation.</p>
 <p>The recommendation of Zend Framework is that the individual developer should
@@ -228,7 +227,6 @@ default. This can be enabled by passing <code>true</code> as the second argument
 <pre class="codehilite"><code class="language-php">// Encode PHP object recursively
 $jsonObject = Zend\Json\Json::encode($data, true);</code></pre>
 
-
 <p>When doing recursive encoding of objects, as JSON does not support cycles, a
 <code>Zend\Json\Exception\RecursionException</code> will be thrown. If you wish, you can
 silence these exceptions by passing the <code>silenceCyclicalExceptions</code> option:</p>
@@ -237,7 +235,6 @@ silence these exceptions by passing the <code>silenceCyclicalExceptions</code> o
     true,
     ['silenceCyclicalExceptions' =&gt; true]
 );</code></pre>
-
 
 <h2 id="internal-encoderdecoder">Internal Encoder/Decoder</h2>
 <p><code>Zend\Json</code> has two different modes depending if ext/json is enabled in your PHP
@@ -249,7 +246,6 @@ behaves exactly the same.</p>
 <p>Sometimes you might want to use the zend-json encoder/decoder even if you have
 <code>ext/json</code> installed. You can achieve this by calling:</p>
 <pre class="codehilite"><code class="language-php">Zend\Json\Json::$useBuiltinEncoderDecoder = true;</code></pre>
-
 
 <h2 id="json-expressions">JSON Expressions</h2>
 <p>JavaScript makes heavy use of anonymous function callbacks, which can be saved

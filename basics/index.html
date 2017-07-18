@@ -195,7 +195,6 @@ $phpNative = Zend\Json\Json::decode($encodedValue);
 // Encode a PHP value to JSON:
 $json = Zend\Json\Json::encode($phpNative);</code></pre>
 
-
 <blockquote>
 <h2 id="extjson">ext/json</h2>
 <p>By default, the above two calls will proxy to the <code>json_decode()</code> and
@@ -216,7 +215,6 @@ $json = Zend\Json\Json::encode($phpNative);
 if ($debug) {
     echo Zend\Json\Json::prettyPrint($json, array('indent' =&gt; ' '));
 }</code></pre>
-
 
 <p>The second, optional, argument to <code>Zend\Json\Json::prettyPrint()</code> is an option
 array. Option <code>indent</code> allows providing an indentation string; by default, it
