@@ -483,11 +483,11 @@ class JsonTest extends TestCase
 
     public function testEncodeObject()
     {
-        $actual  = new TestAsset\Object();
+        $actual  = new TestAsset\TestObject();
         $encoded = Json\Encoder::encode($actual);
         $decoded = Json\Decoder::decode($encoded, Json\Json::TYPE_OBJECT);
 
-        $this->assertAttributeEquals(TestAsset\Object::class, '__className', $decoded);
+        $this->assertAttributeEquals(TestAsset\TestObject::class, '__className', $decoded);
         $this->assertAttributeEquals('bar', 'foo', $decoded);
         $this->assertAttributeEquals('baz', 'bar', $decoded);
         $this->assertFalse(isset($decoded->_foo));
@@ -495,9 +495,9 @@ class JsonTest extends TestCase
 
     public function testEncodeClass()
     {
-        $encoded = Json\Encoder::encodeClass(TestAsset\Object::class);
+        $encoded = Json\Encoder::encodeClass(TestAsset\TestObject::class);
 
-        $this->assertContains("Class.create('ZendTest\\Json\\TestAsset\\Object'", $encoded);
+        $this->assertContains("Class.create('ZendTest\\Json\\TestAsset\\TestObject'", $encoded);
         $this->assertContains("ZAjaxEngine.invokeRemoteMethod(this, 'foo'", $encoded);
         $this->assertContains("ZAjaxEngine.invokeRemoteMethod(this, 'bar'", $encoded);
         $this->assertNotContains("ZAjaxEngine.invokeRemoteMethod(this, 'baz'", $encoded);
@@ -508,9 +508,9 @@ class JsonTest extends TestCase
 
     public function testEncodeClasses()
     {
-        $encoded = Json\Encoder::encodeClasses(['ZendTest\Json\TestAsset\Object', 'Zend\Json\Json']);
+        $encoded = Json\Encoder::encodeClasses(['ZendTest\Json\TestAsset\TestObject', 'Zend\Json\Json']);
 
-        $this->assertContains("Class.create('ZendTest\\Json\\TestAsset\\Object'", $encoded);
+        $this->assertContains("Class.create('ZendTest\\Json\\TestAsset\\TestObject'", $encoded);
         $this->assertContains("Class.create('Zend\\Json\\Json'", $encoded);
     }
 
