@@ -6,7 +6,7 @@
 .*.sw*
 .*.un~
 nbproject
-doc/html/
+docs/html/
 tmp/
 vendor/
 zf-mkdoc-theme/
