@@ -9,8 +9,8 @@ namespace ZendTest\Json;
 
 use ArrayIterator;
 use PHPUnit\Framework\TestCase;
-use Zend\Json;
 use stdClass;
+use Zend\Json;
 
 class JsonTest extends TestCase
 {
