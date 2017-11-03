@@ -8,7 +8,7 @@
 namespace ZendTest\Json;
 
 use ArrayIterator;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Json;
 use stdClass;
 
@@ -86,7 +86,6 @@ class JsonTest extends TestCase
     {
         $this->assertEncodesToDecodable(null, 'Null could not be decoded after encoding');
     }
-
 
     /**
      * test boolean encoding/decoding
@@ -412,7 +411,7 @@ class JsonTest extends TestCase
      */
     public function testDecodeBorkedJsonShouldThrowException1()
     {
-        $this->setExpectedException(Json\Exception\RuntimeException::class);
+        $this->expectException(Json\Exception\RuntimeException::class);
         Json\Decoder::decode('[a"],["a],[][]');
     }
 
@@ -421,7 +420,7 @@ class JsonTest extends TestCase
      */
     public function testDecodeBorkedJsonShouldThrowException2()
     {
-        $this->setExpectedException(Json\Exception\RuntimeException::class);
+        $this->expectException(Json\Exception\RuntimeException::class);
         Json\Decoder::decode('[a"],["a]');
     }
 
@@ -430,7 +429,7 @@ class JsonTest extends TestCase
      */
     public function testOctalValuesAreNotSupportedInJsonNotation()
     {
-        $this->setExpectedException(Json\Exception\RuntimeException::class);
+        $this->expectException(Json\Exception\RuntimeException::class);
         Json\Decoder::decode('010');
     }
 
@@ -451,7 +450,7 @@ class JsonTest extends TestCase
         $encoded = Json\Encoder::encode($everything);
 
         // should fail
-        $this->setExpectedException(Json\Exception\RecursionException::class);
+        $this->expectException(Json\Exception\RecursionException::class);
         Json\Encoder::encode($everything, true);
     }
 
@@ -886,7 +885,7 @@ class JsonTest extends TestCase
      */
     public function testDecodingInvalidJSONShouldRaiseAnException()
     {
-        $this->setExpectedException(Json\Exception\RuntimeException::class);
+        $this->expectException(Json\Exception\RuntimeException::class);
         Json\Json::decode(' some string ');
     }
 
