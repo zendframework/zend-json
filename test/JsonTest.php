@@ -960,6 +960,28 @@ EOB;
         $this->assertSame($expected, $pretty);
     }
 
+    public function testJsonPrettyPrintDoesNotRemoveSpaceAroundCommaInStringValue()
+    {
+        $original = <<<JSON
+{
+    "space-after": "Level is greater than 9000, maybe even 9001!"
+    "space-around": "Really , nobody does that."
+    "within-array": [
+        "Level is greater than 9000, maybe even 9001!",
+        "Really , nobody does that."
+    ],
+    "within-object": {
+        "space-after": "Level is greater than 9000, maybe even 9001!"
+        "space-around": "Really , nobody does that."
+    }
+}
+JSON;
+
+        $pretty = Json\Json::prettyPrint($original);
+
+        $this->assertSame($original, $pretty);
+    }
+
     public function testPrettyPrintDoublequoteFollowingEscapedBackslashShouldNotBeTreatedAsEscaped()
     {
         $this->assertEquals(
