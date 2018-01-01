@@ -31,8 +31,10 @@ matrix:
         - TEST_COVERAGE=true
         - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
         - PATH="$HOME/.local/bin:$PATH"
-    - php: 7
-    - php: hhvm 
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+    - php: hhvm
   allow_failures:
     - php: hhvm
 
