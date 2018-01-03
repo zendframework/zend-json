@@ -960,20 +960,70 @@ EOB;
         $this->assertSame($expected, $pretty);
     }
 
+    public function testPrettyPrintEmptyArray()
+    {
+        $original = <<<JSON
+[]
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
+    public function testPrettyPrintEmptyObject()
+    {
+        $original = <<<JSON
+{}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
+    public function testPrettyPrintEmptyProperties()
+    {
+        $original = <<<JSON
+{
+    "foo": [],
+    "bar": {}
+}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
+    public function testPrettyPrintEmptyPropertiesWithWhitespace()
+    {
+        $original = <<<JSON
+{
+"foo": [
+
+            ],
+    "bar": {
+    
+    
+}
+}
+JSON;
+
+        $pretty = <<<JSON
+{
+    "foo": [],
+    "bar": {}
+}
+JSON;
+
+        $this->assertSame($pretty, Json\Json::prettyPrint($original));
+    }
+
     public function testJsonPrettyPrintDoesNotRemoveSpaceAroundCommaInStringValue()
     {
         $original = <<<JSON
 {
-    "space-after": "Level is greater than 9000, maybe even 9001!"
-    "space-around": "Really , nobody does that."
-    "within-array": [
+    "after": "Level is greater than 9000, maybe even 9001!",
+    "around": "Really , nobody does that.",
+    "in-array": [
         "Level is greater than 9000, maybe even 9001!",
         "Really , nobody does that."
-    ],
-    "within-object": {
-        "space-after": "Level is greater than 9000, maybe even 9001!"
-        "space-around": "Really , nobody does that."
-    }
+    ]
 }
 JSON;
 
