@@ -18,7 +18,13 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#38](https://github.com/zendframework/zend-json/pull/38) provides a fix to
+  `Json::prettyPrint()` to ensure that empty arrays and objects are printed
+  without newlines.
+
+- [#38](https://github.com/zendframework/zend-json/pull/38) provides a fix to
+  `Json::prettyPrint()` to remove additional newlines preceding a closing
+  bracket.
 
 ## 3.0.0 - 2016-03-31
 
