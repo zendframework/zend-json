@@ -469,7 +469,7 @@ class JsonTest extends TestCase
         $everything['allItems'] = [$item1, $item2];
         $everything['currentItem'] = $item1;
 
-        $options = ['silenceCyclicalExceptions'=>true];
+        $options = ['silenceCyclicalExceptions' => true];
 
         Json\Json::$useBuiltinEncoderDecoder = true;
         $encoded = Json\Json::encode($everything, true, $options);
@@ -581,7 +581,7 @@ class JsonTest extends TestCase
      */
     public function testEncodingObjectWithExprAndExtJSON()
     {
-        if (!function_exists('json_encode')) {
+        if (! function_exists('json_encode')) {
             $this->markTestSkipped('Test only works with ext/json enabled!');
         }
 
