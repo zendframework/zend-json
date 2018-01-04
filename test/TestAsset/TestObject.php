@@ -10,7 +10,7 @@ namespace ZendTest\Json\TestAsset;
 /**
  * Test class for encoding classes.
  */
-class Object
+class TestObject
 {
     const FOO = 'bar';
 
