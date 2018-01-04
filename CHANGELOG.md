@@ -14,7 +14,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#35](https://github.com/zendframework/zend-json/pull/35) removes support for
+  PHP 5.5.
+
+- [#35](https://github.com/zendframework/zend-json/pull/35) removes support for
+  HHVM.
 
 ### Fixed
 
