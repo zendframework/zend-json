@@ -974,6 +974,59 @@ EOB;
         );
     }
 
+    public function testPrettyPrintEmptyArray()
+    {
+        $original = <<<JSON
+[]
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
+    public function testPrettyPrintEmptyObject()
+    {
+        $original = <<<JSON
+{}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
+    public function testPrettyPrintEmptyProperties()
+    {
+        $original = <<<JSON
+{
+    "foo": [],
+    "bar": {}
+}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+    public function testPrettyPrintEmptyPropertiesWithWhitespace()
+    {
+        $original = <<<JSON
+{
+"foo": [
+
+            ],
+    "bar": {
+    
+    
+}
+}
+JSON;
+
+        $pretty = <<<JSON
+{
+    "foo": [],
+    "bar": {}
+}
+JSON;
+
+        $this->assertSame($pretty, Json\Json::prettyPrint($original));
+    }
+
     public function testPrettyPrintRePrettyPrint()
     {
         $expected = <<<EOB
