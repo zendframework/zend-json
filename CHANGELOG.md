@@ -2,11 +2,13 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.1.0 - TBD
+## 3.1.0 - 2018-01-04
 
 ### Added
 
-- Nothing.
+- [#35](https://github.com/zendframework/zend-json/pull/35) and
+  [#39](https://github.com/zendframework/zend-json/pull/39) add support for PHP
+  7.1 and PHP 7.2.
 
 ### Deprecated
 
@@ -19,25 +21,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#35](https://github.com/zendframework/zend-json/pull/35) removes support for
   HHVM.
-
-### Fixed
-
-- Nothing.
-
-## 3.0.1 - TBD
-
-### Added
-
-- [#39](https://github.com/zendframework/zend-json/pull/39) adds support for PHP
-  7.1 and PHP 7.2.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
 
 ### Fixed
 
