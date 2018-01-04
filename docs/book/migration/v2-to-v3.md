@@ -6,7 +6,7 @@ particular, it features the removal of two features to new packages.
 ## zend-json-server
 
 The `Zend\Json\Server` subcomponent was extracted to a new component,
-[zend-json-server](https://zendframework.github.io/zend-json-server). Install it
+[zend-json-server](https://docs.zendframework.com/zend-json-server). Install it
 using:
 
 ```bash
@@ -20,7 +20,7 @@ zend-json.
 
 v2 releases of zend-json provided `Zend\Json\Json::fromXml()`, which could be
 used to convert an XML document to JSON. This functionality has been extracted
-to a new component, [zend-xml2json](https://zendframework.github.io/zend-xml2json).
+to a new component, [zend-xml2json](https://docs.zendframework.com/zend-xml2json).
 Install it using:
 
 ```bash
