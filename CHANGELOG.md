@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.1.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#35](https://github.com/zendframework/zend-json/pull/35) removes support for
+  PHP 5.5.
+
+- [#35](https://github.com/zendframework/zend-json/pull/35) removes support for
+  HHVM.
+
+### Fixed
+
+- Nothing.
+
 ## 3.0.1 - TBD
 
 ### Added

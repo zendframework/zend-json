@@ -1,5 +1,5 @@
-docs_dir: doc/book
-site_dir: doc/html
+docs_dir: docs/book
+site_dir: docs/html
 pages:
     - index.md
     - Intro: intro.md
@@ -11,4 +11,4 @@ pages:
 site_name: zend-json
 site_description: Zend\Json
 repo_url: 'https://github.com/zendframework/zend-json'
-copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+copyright: 'Copyright (c) 2005-2017 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
