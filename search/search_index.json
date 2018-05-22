@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/",
-            "text": "zend-json\n\n\n\n\n\n\nZend\\Json\n provides convenience methods for serializing native PHP to JSON and\ndecoding JSON to native PHP. For more information on JSON, visit the JSON\n\nproject site\n.\n\n\n\n\nFile issues at https://github.com/zendframework/zend-json/issues\n\n\nDocumentation is at https://zendframework.github.io/zend-json/",
-            "title": "Home"
+            "text": "zend-json\n\n\n\n\n\n\nZend\\Json\n provides convenience methods for serializing native PHP to JSON and\ndecoding JSON to native PHP. For more information on JSON, visit the JSON\n\nproject site\n.\n\n\n\n\nFile issues at https://github.com/zendframework/zend-json/issues\n\n\nDocumentation is at https://docs.zendframework.com/zend-json/",
+            "title": "zend-json"
         },
         {
             "location": "/#zend-json",
-            "text": "Zend\\Json  provides convenience methods for serializing native PHP to JSON and\ndecoding JSON to native PHP. For more information on JSON, visit the JSON project site .   File issues at https://github.com/zendframework/zend-json/issues  Documentation is at https://zendframework.github.io/zend-json/",
+            "text": "Zend\\Json  provides convenience methods for serializing native PHP to JSON and\ndecoding JSON to native PHP. For more information on JSON, visit the JSON project site .   File issues at https://github.com/zendframework/zend-json/issues  Documentation is at https://docs.zendframework.com/zend-json/",
             "title": "zend-json"
         },
         {
