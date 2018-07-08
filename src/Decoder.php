@@ -444,21 +444,21 @@ class Decoder
                 $this->tokenValue = $result;
                 break;
             case 't':
-                if (($i + 3) < $strLength && substr($str, $start, 4) === "true") {
+                if (($i + 3) < $strLength && $start === strpos($str, "true", $start)) {
                     $this->token = self::DATUM;
                 }
                 $this->tokenValue = true;
                 $i += 3;
                 break;
             case 'f':
-                if (($i + 4) < $strLength && substr($str, $start, 5) === "false") {
+                if (($i + 4) < $strLength && $start === strpos($str, "false", $start)) {
                     $this->token = self::DATUM;
                 }
                 $this->tokenValue = false;
                 $i += 4;
                 break;
             case 'n':
-                if (($i + 3) < $strLength && substr($str, $start, 4) === "null") {
+                if (($i + 3) < $strLength && $start === strpos($str, "null", $start)) {
                     $this->token = self::DATUM;
                 }
                 $this->tokenValue = null;
