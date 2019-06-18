@@ -1,8 +1,8 @@
 <?php
 /**
- * @see       https://github.com/zendframwork/zend-json for the canonical source repository
+ * @see       https://github.com/zendframework/zend-json for the canonical source repository
  * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframwork/zend-json/blob/master/LICENSE.md New BSD License
+ * @license   https://github.com/zendframework/zend-json/blob/master/LICENSE.md New BSD License
  */
 
 namespace Zend\Json;
@@ -192,9 +192,9 @@ class Decoder
      * - array
      * - array of one or more of the above types
      *
-     * By default, decoded objects will be returned as associative arrays; to
-     * return a stdClass object instead, pass {@link Json::TYPE_OBJECT} to
-     * the $objectDecodeType parameter.
+     * By default, decoded objects will be returned as a stdClass object;
+     * to return associative arrays instead, pass {@link Json::TYPE_ARRAY}
+     * to the $objectDecodeType parameter.
      *
      * @param string $source String to be decoded.
      * @param int $objectDecodeType How objects should be decoded; should be
