@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#44](https://github.com/zendframework/zend-json/pull/44) adds support for PHP 7.3.
 
 ### Changed
 
