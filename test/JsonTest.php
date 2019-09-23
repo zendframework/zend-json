@@ -1010,8 +1010,8 @@ JSON;
 
             ],
     "bar": {
-    
-    
+
+
 }
 }
 JSON;
@@ -1141,5 +1141,175 @@ EOB;
         $json = '{"":"test"}';
         $object = Json\Json::decode($json, Json\Json::TYPE_OBJECT);
         $this->assertAttributeEquals('test', '_empty_', $object);
+    }
+
+    /**
+     * Get consistent input data to test the four possible encoding paths:
+     *     encoder: BuiltIn , forceObject: false
+     *     encoder: BuiltIn , forceObject: true
+     *     encoder: Encoder , forceObject: false
+     *     encoder: Encoder , forceObject: true
+     *
+     * @see getExpectedForceObjectTestResult
+     * @see getExpectedNotForcedObjectTestResult
+     * @see testForceObjectWithBuiltInEncoder
+     * @see testForceObjectWithEncoderComponent
+     * @see testNotForcedObjectWithBuiltInEncoder
+     * @see testNotForcedObjectWithEncoderComponent
+     * @return array known consistent forceObject test data
+     */
+    private function getForceObjectTestData()
+    {
+        $source = [
+            0 => 'zero',
+            1 => 'one',
+            2 => 'two',
+            3 => 'three',
+            4 => [
+                100 => 'one hundred',
+                200 => 'two hundred',
+                300 => 'three hundred',
+            ],
+            5 => [
+                'a','b','c','d','e',
+            ],
+            6 => [
+                0,1,2,3,4,5,
+            ],
+            7 => [],
+            8 => [
+                "a" => [1],
+            ],
+        ];
+
+        return $source;
+    }
+
+    /**
+     * Get expected output of
+     *     encoder: BuiltIn , forceObject: true
+     *     encoder: Encoder , forceObject: true
+     *
+     * @see getForceObjectTestData
+     * @see testForceObjectWithBuiltInEncoder
+     * @see testForceObjectWithEncoderComponent
+     * @return string expected JSON encoded string of the data from {@see JsonTest::getForceObjectTestData()}.
+     */
+    private function getExpectedForceObjectTestResult()
+    {
+        $expected = '{"0":"zero","1":"one","2":"two","3":"three",'
+                  . '"4":{"100":"one hundred","200":"two hundred","300":"three hundred"},'
+                  . '"5":{"0":"a","1":"b","2":"c","3":"d","4":"e"},'
+                  . '"6":{"0":0,"1":1,"2":2,"3":3,"4":4,"5":5},"7":{},"8":{"a":{"0":1}}}';
+
+        return $expected;
+    }
+
+    /**
+     * Get expected output of
+     *     encoder: BuiltIn , forceObject: false
+     *     encoder: Encoder , forceObject: false
+     *
+     * @see getForceObjectTestData
+     * @see testNotForcedObjectWithBuiltInEncoder
+     * @see testNotForcedObjectWithEncoderComponent
+     * @return string expected JSON encoded string of the data from {@see JsonTest::getForceObjectTestData()}.
+     */
+    private function getExpectedNotForcedObjectTestResult()
+    {
+        $expected = '["zero","one","two","three",{"100":"one hundred","200":"two hundred","300":"three hundred"},'
+                  . '["a","b","c","d","e"],[0,1,2,3,4,5],[],{"a":[1]}]';
+
+        return $expected;
+    }
+
+    /**
+     * Test built in encoder when setting the forceObject flag.
+     */
+    public function testForceObjectWithBuiltInEncoder()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = true;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedForceObjectTestResult();
+
+        $actual = Json\Json::encode($source, false, ["forceObject" => true]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test Encoder class when setting the forceObject flag.
+     */
+    public function testForceObjectWithEncoderComponent()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = false;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedForceObjectTestResult();
+
+        $actual = Json\Json::encode($source, false, ["forceObject" => true]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test built in encoder when clearing the forceObject flag.
+     */
+    public function testNotForcedObjectWithBuiltInEncoder()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = true;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedNotForcedObjectTestResult();
+
+        $actual = Json\Json::encode($source, false, ["forceObject" => false]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test Encoder class when clearing the forceObject flag.
+     */
+    public function testNotForcedObjectWithEncoderComponent()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = false;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedNotForcedObjectTestResult();
+
+        $actual = Json\Json::encode($source, false, ["forceObject" => false]);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test built in encoder when utilising the default forceObject flag
+     */
+    public function testDefaultForceObjectWithBuiltInEncoder()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = true;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedNotForcedObjectTestResult();
+
+        $actual = Json\Json::encode($source);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Test Encoder class when utilising the default forceObject flag
+     */
+    public function testDefaultForceObjectWithEncoderComponent()
+    {
+        Json\Json::$useBuiltinEncoderDecoder = false;
+
+        $source = $this->getForceObjectTestData();
+        $expected = $this->getExpectedNotForcedObjectTestResult();
+
+        $actual = Json\Json::encode($source);
+
+        $this->assertEquals($expected, $actual);
     }
 }

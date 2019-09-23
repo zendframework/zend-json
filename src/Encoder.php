@@ -70,6 +70,17 @@ class Encoder
     }
 
     /**
+     * Discover whether the force-object option flag is set, which would
+     * imply this encoder should force arrays to be objects.
+     *
+     * @return bool the encode should force arrays to be objects.
+     */
+    protected function isForceObjectSet()
+    {
+        return isset($this->options['forceObject']) && $this->options['forceObject'];
+    }
+
+    /**
      * Encode a value to JSON.
      *
      * Recursive method which determines the type of value to be encoded
@@ -189,6 +200,9 @@ class Encoder
      */
     protected function encodeArray($array)
     {
+        if ($this->isForceObjectSet()) {
+            return $this->encodeAssociativeArray($array);
+        }
         // Check for associative array
         if (! empty($array) && (array_keys($array) !== range(0, count($array) - 1))) {
             // Associative array

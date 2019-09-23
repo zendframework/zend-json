@@ -293,7 +293,8 @@ class Json
     private static function encodeValue($valueToEncode, $cycleCheck, array $options, $prettyPrint)
     {
         if (function_exists('json_encode') && static::$useBuiltinEncoderDecoder !== true) {
-            return self::encodeViaPhpBuiltIn($valueToEncode, $prettyPrint);
+            $forceObject = (isset($options['forceObject']) && ($options['forceObject'] === true));
+            return self::encodeViaPhpBuiltIn($valueToEncode, $prettyPrint, $forceObject);
         }
 
         return self::encodeViaEncoder($valueToEncode, $cycleCheck, $options, $prettyPrint);
@@ -311,12 +312,15 @@ class Json
      *
      * If $prettyPrint is boolean true, also uses JSON_PRETTY_PRINT.
      *
+     * If $forceObject is boolean true, also uses JSON_FORCE_OBJECT.
+     *
      * @param mixed $valueToEncode
      * @param bool $prettyPrint
+     * @param bool $forceObject
      * @return string|false Boolean false return value if json_encode is not
      *     available, or the $useBuiltinEncoderDecoder flag is enabled.
      */
-    private static function encodeViaPhpBuiltIn($valueToEncode, $prettyPrint = false)
+    private static function encodeViaPhpBuiltIn($valueToEncode, $prettyPrint = false, $forceObject = false)
     {
         if (! function_exists('json_encode') || static::$useBuiltinEncoderDecoder === true) {
             return false;
@@ -326,6 +330,10 @@ class Json
 
         if ($prettyPrint) {
             $encodeOptions |= JSON_PRETTY_PRINT;
+        }
+
+        if ($forceObject) {
+            $encodeOptions |= JSON_FORCE_OBJECT;
         }
 
         return json_encode($valueToEncode, $encodeOptions);
