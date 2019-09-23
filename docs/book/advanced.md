@@ -62,6 +62,22 @@ $jsonObject = Zend\Json\Json::encode(
 );
 ```
 
+## Forcing arrays to be JSON objects
+
+If you need the JSON to produce objects in all cases, you may pass the
+option `forceObject` in the encode options to force the encoding to
+objects only.  This often makes the resultant JSON string longer in cases
+where the encoding would have automatically chosen an array: however,
+the benefit is that this produces a consistent schema.
+
+```php
+$jsonObject = Zend\Json\Json::encode(
+    $data,
+    true,
+    ['forceObject' => true]
+);
+```
+
 ## Internal Encoder/Decoder
 
 `Zend\Json` has two different modes depending if ext/json is enabled in your PHP
