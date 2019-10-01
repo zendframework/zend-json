@@ -285,12 +285,11 @@
     <h1 id="basic-usage">Basic Usage</h1>
 <p>Usage of zend-json involves using two public static methods:
 <code>Zend\Json\Json::encode()</code> and <code>Zend\Json\Json::decode()</code>.</p>
-<pre class="codehilite"><code class="language-php">// Decode a JSON value to PHP:
+<p> <pre class=codehilite><code class=language-php>// Decode a JSON value to PHP:
 $phpNative = Zend\Json\Json::decode($encodedValue);
 
 // Encode a PHP value to JSON:
-$json = Zend\Json\Json::encode($phpNative);</code></pre>
-
+$json = Zend\Json\Json::encode($phpNative);</code></pre></p>
 <blockquote>
 <h2 id="extjson">ext/json</h2>
 <p>By default, the above two calls will proxy to the <code>json_decode()</code> and
@@ -306,12 +305,11 @@ customizations around pretty printing.</p>
 <code>Zend\Json\Json::encode()</code>, since it has no spacing or indentation. In order to
 make it easier, <code>Zend\Json\Json</code> allows you to pretty-print JSON data in the
 human-readable format with <code>Zend\Json\Json::prettyPrint()</code>.</p>
-<pre class="codehilite"><code class="language-php">// Encode it to return to the client:
+<p> <pre class=codehilite><code class=language-php>// Encode it to return to the client:
 $json = Zend\Json\Json::encode($phpNative);
 if ($debug) {
     echo Zend\Json\Json::prettyPrint($json, array('indent' =&gt; ' '));
-}</code></pre>
-
+}</code></pre></p>
 <p>The second, optional, argument to <code>Zend\Json\Json::prettyPrint()</code> is an option
 array. Option <code>indent</code> allows providing an indentation string; by default, it
 uses four spaces.</p>
@@ -348,7 +346,7 @@ uses four spaces.</p>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-json/edit/master/docs/basics.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-json/edit/master/docs/book/basics.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
