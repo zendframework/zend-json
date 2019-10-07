@@ -165,84 +165,107 @@ class Json
      */
     public static function prettyPrint($json, array $options = [])
     {
-        $tokens       = preg_split('|([\{\}\]\[,])|', $json, -1, PREG_SPLIT_DELIM_CAPTURE);
-        $result       = '';
-        $indentLevel  = 0;
         $indentString = isset($options['indent']) ? $options['indent'] : '    ';
-        $inLiteral    = false;
 
-        $openingBrackets = ['{', '['];
-        $closingBrackets = ['}', ']'];
+        $json = trim($json);
+        $length = strlen($json);
+        $stack = [];
 
-        $bracketPairs = array_combine(
-            $openingBrackets,
-            $closingBrackets
-        );
+        $result = '';
+        $inValue = false;
 
-        $count = count($tokens);
+        for ($i = 0; $i < $length; ++$i) {
+            switch ($json[$i]) {
+                case '{':
+                case '[':
+                    if (! $inValue) {
+                        $stack[] = $json[$i];
 
-        for ($i = 0; $i < $count; ++$i) {
-            $token = trim($tokens[$i]);
+                        $result .= $json[$i];
+                        while (preg_match('/\s/', $json[$i + 1])) {
+                            ++$i;
+                        }
+                        if ($json[$i + 1] !== '}' && $json[$i + 1] !== ']') {
+                            $result .= "\n" . str_repeat($indentString, count($stack));
+                        }
+                        continue 2;
+                    }
+                    break;
+                case '}':
+                case ']':
+                    if (! $inValue) {
+                        $last = end($stack);
+                        if (($last === '{' && $json[$i] === '}')
+                            || ($last === '[' && $json[$i] === ']')
+                        ) {
+                            array_pop($stack);
+                        }
 
-            if ($token === '') {
-                continue;
+                        $result .= $json[$i];
+                        while (preg_match('/\s/', $json[$i + 1])) {
+                            ++$i;
+                        }
+                        if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                            $result .= "\n" . str_repeat($indentString, count($stack) - 1);
+                        }
+
+                        continue 2;
+                    }
+                    break;
+                case '"':
+                    $result .= '"';
+
+                    if (! $inValue) {
+                        $inValue = true;
+                    } else {
+                        $backslashes = 0;
+                        $n = $i;
+                        while ($json[--$n] === '\\') {
+                            ++$backslashes;
+                        }
+
+                        if (($backslashes % 2) === 0) {
+                            $inValue = false;
+
+                            while (preg_match('/\s/', $json[$i + 1])) {
+                                ++$i;
+                            }
+
+                            if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                                $result .= "\n" . str_repeat($indentString, count($stack) - 1);
+                            }
+                        }
+                    }
+                    continue 2;
+                case ':':
+                    if (! $inValue) {
+                        $result .= ': ';
+                        continue 2;
+                    }
+                    break;
+                case ',':
+                    if (! $inValue) {
+                        $result .= ',' . "\n" . str_repeat($indentString, count($stack));
+                        continue 2;
+                    }
+                    break;
+                default:
+                    if (! $inValue && preg_match('/\s/', $json[$i])) {
+                        continue 2;
+                    }
+                    break;
             }
 
-            if (preg_match('/^("(?:.*)"):[ ]?(.*)$/', $token, $matches)) {
-                $token = $matches[1] . ': ' . $matches[2];
-            }
+            $result .= $json[$i];
 
-            $prefix = str_repeat($indentString, $indentLevel);
-            if (! $inLiteral && in_array($token, $openingBrackets, true)) {
-                $indentLevel++;
-                if ($result != '' && $result[strlen($result) - 1] === "\n") {
-                    $result .= $prefix;
-                }
-                $result .= $token;
-
-                $closingBracket = $bracketPairs[$token];
-
-                do {
+            if (! $inValue) {
+                while (preg_match('/\s/', $json[$i + 1])) {
                     ++$i;
-                } while ($i < $count && '' === trim($tokens[$i]));
-
-                if ($closingBracket === $tokens[$i]) {
-                    --$indentLevel;
-
-                    $result .= $tokens[$i];
-
-                    continue;
                 }
 
-                --$i;
-
-                $result .= "\n";
-
-                continue;
-            }
-
-            if (! $inLiteral && in_array($token, $closingBrackets, true)) {
-                $indentLevel--;
-                $prefix = str_repeat($indentString, $indentLevel);
-                $result .= "\n" . $prefix . $token;
-                continue;
-            }
-
-            if (! $inLiteral && $token === ',') {
-                $result .= $token . "\n";
-                continue;
-            }
-
-            $result .= ($inLiteral ? '' : $prefix) . $token;
-
-            // Remove escaped backslash sequences causing false positives in next check
-            $token = str_replace('\\', '', $token);
-
-            // Count the number of unescaped double-quotes in token, subtract
-            // the number of escaped double-quotes, and if the result is odd
-            // then we are inside a string literal
-            if ((substr_count($token, '"') - substr_count($token, '\\"')) % 2 !== 0) {
-                $inLiteral = ! $inLiteral;
+                if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                    $result .= "\n" . str_repeat($indentString, count($stack) - 1);
+                }
             }
         }
 
