@@ -182,10 +182,10 @@ class Json
                         $stack[] = $json[$i];
 
                         $result .= $json[$i];
-                        while (preg_match('/\s/', $json[$i + 1])) {
+                        while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                             ++$i;
                         }
-                        if ($json[$i + 1] !== '}' && $json[$i + 1] !== ']') {
+                        if (isset($json[$i + 1]) && $json[$i + 1] !== '}' && $json[$i + 1] !== ']') {
                             $result .= "\n" . str_repeat($indentString, count($stack));
                         }
                         continue 2;
@@ -202,10 +202,10 @@ class Json
                         }
 
                         $result .= $json[$i];
-                        while (preg_match('/\s/', $json[$i + 1])) {
+                        while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                             ++$i;
                         }
-                        if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                        if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
                             $result .= "\n" . str_repeat($indentString, count($stack) - 1);
                         }
 
@@ -227,11 +227,11 @@ class Json
                         if (($backslashes % 2) === 0) {
                             $inValue = false;
 
-                            while (preg_match('/\s/', $json[$i + 1])) {
+                            while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                                 ++$i;
                             }
 
-                            if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                            if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
                                 $result .= "\n" . str_repeat($indentString, count($stack) - 1);
                             }
                         }
@@ -259,11 +259,11 @@ class Json
             $result .= $json[$i];
 
             if (! $inValue) {
-                while (preg_match('/\s/', $json[$i + 1])) {
+                while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                     ++$i;
                 }
 
-                if ($json[$i + 1] === '}' || $json[$i + 1] === ']') {
+                if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
                     $result .= "\n" . str_repeat($indentString, count($stack) - 1);
                 }
             }
