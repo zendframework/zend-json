@@ -172,13 +172,13 @@ class Json
         $stack = [];
 
         $result = '';
-        $inValue = false;
+        $inLiteral = false;
 
         for ($i = 0; $i < $length; ++$i) {
             switch ($json[$i]) {
                 case '{':
                 case '[':
-                    if (! $inValue) {
+                    if (! $inLiteral) {
                         $stack[] = $json[$i];
 
                         $result .= $json[$i];
@@ -193,7 +193,7 @@ class Json
                     break;
                 case '}':
                 case ']':
-                    if (! $inValue) {
+                    if (! $inLiteral) {
                         $last = end($stack);
                         if (($last === '{' && $json[$i] === '}')
                             || ($last === '[' && $json[$i] === ']')
@@ -215,8 +215,8 @@ class Json
                 case '"':
                     $result .= '"';
 
-                    if (! $inValue) {
-                        $inValue = true;
+                    if (! $inLiteral) {
+                        $inLiteral = true;
                     } else {
                         $backslashes = 0;
                         $n = $i;
@@ -225,7 +225,7 @@ class Json
                         }
 
                         if (($backslashes % 2) === 0) {
-                            $inValue = false;
+                            $inLiteral = false;
 
                             while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                                 ++$i;
@@ -238,19 +238,19 @@ class Json
                     }
                     continue 2;
                 case ':':
-                    if (! $inValue) {
+                    if (! $inLiteral) {
                         $result .= ': ';
                         continue 2;
                     }
                     break;
                 case ',':
-                    if (! $inValue) {
+                    if (! $inLiteral) {
                         $result .= ',' . "\n" . str_repeat($indentString, count($stack));
                         continue 2;
                     }
                     break;
                 default:
-                    if (! $inValue && preg_match('/\s/', $json[$i])) {
+                    if (! $inLiteral && preg_match('/\s/', $json[$i])) {
                         continue 2;
                     }
                     break;
@@ -258,7 +258,7 @@ class Json
 
             $result .= $json[$i];
 
-            if (! $inValue) {
+            if (! $inLiteral) {
                 while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
                     ++$i;
                 }
