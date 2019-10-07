@@ -960,6 +960,19 @@ EOB;
         $this->assertSame($expected, $pretty);
     }
 
+    public function testPrettyPrintDoublequoteFollowingEscapedBackslashShouldNotBeTreatedAsEscaped()
+    {
+        $this->assertEquals(
+            "[\n    1,\n    \"\\\\\",\n    3\n]",
+            Json\Json::prettyPrint(Json\Json::encode([1, '\\', 3]))
+        );
+
+        $this->assertEquals(
+            "{\n    \"a\": \"\\\\\"\n}",
+            Json\Json::prettyPrint(Json\Json::encode(['a' => '\\']))
+        );
+    }
+
     public function testPrettyPrintEmptyArray()
     {
         $original = <<<JSON
@@ -1056,19 +1069,6 @@ JSON;
 JSON;
 
         $this->assertSame($original, Json\Json::prettyPrint($original));
-    }
-
-    public function testPrettyPrintDoublequoteFollowingEscapedBackslashShouldNotBeTreatedAsEscaped()
-    {
-        $this->assertEquals(
-            "[\n    1,\n    \"\\\\\",\n    3\n]",
-            Json\Json::prettyPrint(Json\Json::encode([1, '\\', 3]))
-        );
-
-        $this->assertEquals(
-            "{\n    \"a\": \"\\\\\"\n}",
-            Json\Json::prettyPrint(Json\Json::encode(['a' => '\\']))
-        );
     }
 
     public function testPrettyPrintRePrettyPrint()
