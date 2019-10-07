@@ -1032,6 +1032,32 @@ JSON;
         $this->assertSame($original, $pretty);
     }
 
+    public function testJsonPretty()
+    {
+        $original = <<<JSON
+{
+    "hell\"o": "Level::great",
+    "object": {
+        "val1": "key\\\",
+        "val2": "key{",
+        "val3": "[ ] : "
+    },
+    "arr": [
+        "1",
+        2,
+        true,
+        null,
+        "{ }",
+        "[ ]",
+        ":",
+        " "
+    ]
+}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
+    }
+
     public function testPrettyPrintDoublequoteFollowingEscapedBackslashShouldNotBeTreatedAsEscaped()
     {
         $this->assertEquals(
@@ -1043,59 +1069,6 @@ JSON;
             "{\n    \"a\": \"\\\\\"\n}",
             Json\Json::prettyPrint(Json\Json::encode(['a' => '\\']))
         );
-    }
-
-    public function testPrettyPrintEmptyArray()
-    {
-        $original = <<<JSON
-[]
-JSON;
-
-        $this->assertSame($original, Json\Json::prettyPrint($original));
-    }
-
-    public function testPrettyPrintEmptyObject()
-    {
-        $original = <<<JSON
-{}
-JSON;
-
-        $this->assertSame($original, Json\Json::prettyPrint($original));
-    }
-
-    public function testPrettyPrintEmptyProperties()
-    {
-        $original = <<<JSON
-{
-    "foo": [],
-    "bar": {}
-}
-JSON;
-
-        $this->assertSame($original, Json\Json::prettyPrint($original));
-    }
-    public function testPrettyPrintEmptyPropertiesWithWhitespace()
-    {
-        $original = <<<JSON
-{
-"foo": [
-
-            ],
-    "bar": {
-    
-    
-}
-}
-JSON;
-
-        $pretty = <<<JSON
-{
-    "foo": [],
-    "bar": {}
-}
-JSON;
-
-        $this->assertSame($pretty, Json\Json::prettyPrint($original));
     }
 
     public function testPrettyPrintRePrettyPrint()
