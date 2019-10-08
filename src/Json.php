@@ -261,14 +261,16 @@ class Json
 
             $result .= $json[$i];
 
-            if (! $inLiteral) {
-                while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
-                    ++$i;
-                }
+            if ($inLiteral) {
+                continue;
+            }
 
-                if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
-                    $result .= "\n" . str_repeat($indentString, count($stack) - 1);
-                }
+            while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
+                ++$i;
+            }
+
+            if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
+                $result .= "\n" . str_repeat($indentString, count($stack) - 1);
             }
         }
 
