@@ -178,40 +178,43 @@ class Json
             switch ($json[$i]) {
                 case '{':
                 case '[':
-                    if (! $inLiteral) {
-                        $stack[] = $json[$i];
-
-                        $result .= $json[$i];
-                        while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
-                            ++$i;
-                        }
-                        if (isset($json[$i + 1]) && $json[$i + 1] !== '}' && $json[$i + 1] !== ']') {
-                            $result .= "\n" . str_repeat($indentString, count($stack));
-                        }
-                        continue 2;
+                    if ($inLiteral) {
+                        break;
                     }
-                    break;
+
+                    $stack[] = $json[$i];
+
+                    $result .= $json[$i];
+                    while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
+                        ++$i;
+                    }
+                    if (isset($json[$i + 1]) && $json[$i + 1] !== '}' && $json[$i + 1] !== ']') {
+                        $result .= "\n" . str_repeat($indentString, count($stack));
+                    }
+
+                    continue 2;
                 case '}':
                 case ']':
-                    if (! $inLiteral) {
-                        $last = end($stack);
-                        if (($last === '{' && $json[$i] === '}')
-                            || ($last === '[' && $json[$i] === ']')
-                        ) {
-                            array_pop($stack);
-                        }
-
-                        $result .= $json[$i];
-                        while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
-                            ++$i;
-                        }
-                        if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
-                            $result .= "\n" . str_repeat($indentString, count($stack) - 1);
-                        }
-
-                        continue 2;
+                    if ($inLiteral) {
+                        break;
                     }
-                    break;
+
+                    $last = end($stack);
+                    if (($last === '{' && $json[$i] === '}')
+                        || ($last === '[' && $json[$i] === ']')
+                    ) {
+                        array_pop($stack);
+                    }
+
+                    $result .= $json[$i];
+                    while (isset($json[$i + 1]) && preg_match('/\s/', $json[$i + 1])) {
+                        ++$i;
+                    }
+                    if (isset($json[$i + 1]) && ($json[$i + 1] === '}' || $json[$i + 1] === ']')) {
+                        $result .= "\n" . str_repeat($indentString, count($stack) - 1);
+                    }
+
+                    continue 2;
                 case '"':
                     $result .= '"';
 
