@@ -48,6 +48,10 @@ All notable changes to this project will be documented in this file, in reverse 
   curly braces in array and string offset access to square brackets
   in order to prevent issues under the upcoming PHP 7.4 release.
 
+- [#37](https://github.com/zendframework/zend-json/pull/37) fixes
+  output of `\Zend\Json::prettyPrint` to not remove spaces after
+  commas in value.
+
 ## 3.1.1 - 2019-06-18
 
 ### Added
