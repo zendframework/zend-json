@@ -1002,6 +1002,7 @@ JSON;
 
         $this->assertSame($original, Json\Json::prettyPrint($original));
     }
+
     public function testPrettyPrintEmptyPropertiesWithWhitespace()
     {
         $original = <<<JSON
@@ -1024,6 +1025,50 @@ JSON;
 JSON;
 
         $this->assertSame($pretty, Json\Json::prettyPrint($original));
+    }
+
+    public function testJsonPrettyPrintDoesNotRemoveSpaceAroundCommaInStringValue()
+    {
+        $original = <<<JSON
+{
+    "after": "Level is greater than 9000, maybe even 9001!",
+    "around": "Really , nobody does that.",
+    "in-array": [
+        "Level is greater than 9000, maybe even 9001!",
+        "Really , nobody does that."
+    ]
+}
+JSON;
+
+        $pretty = Json\Json::prettyPrint($original);
+
+        $this->assertSame($original, $pretty);
+    }
+
+    public function testJsonPretty()
+    {
+        $original = <<<JSON
+{
+    "hell\"o": "Level::great",
+    "object": {
+        "val1": "key\\\",
+        "val2": "key{",
+        "val3": "[ ] : "
+    },
+    "arr": [
+        "1",
+        2,
+        true,
+        null,
+        "{ }",
+        "[ ]",
+        ":",
+        " "
+    ]
+}
+JSON;
+
+        $this->assertSame($original, Json\Json::prettyPrint($original));
     }
 
     public function testPrettyPrintRePrettyPrint()
