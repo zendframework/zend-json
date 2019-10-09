@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://docs.zendframework.com/zend-json/</loc>
-     <lastmod>2019-10-01</lastmod>
+     <lastmod>2019-10-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-json/intro/</loc>
-     <lastmod>2019-10-01</lastmod>
+     <lastmod>2019-10-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-json/basics/</loc>
-     <lastmod>2019-10-01</lastmod>
+     <lastmod>2019-10-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-json/advanced/</loc>
-     <lastmod>2019-10-01</lastmod>
+     <lastmod>2019-10-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-json/migration/v2-to-v3/</loc>
-     <lastmod>2019-10-01</lastmod>
+     <lastmod>2019-10-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
