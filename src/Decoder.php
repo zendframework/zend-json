@@ -107,7 +107,7 @@ class Decoder
                     $i += 5;
                     break;
                 case ($ordChrsC >= 0x20) && ($ordChrsC <= 0x7F):
-                    $utf8 .= $chrs{$i};
+                    $utf8 .= $chrs[$i];
                     break;
                 case ($ordChrsC & 0xE0) == 0xC0:
                     // characters U-00000080 - U-000007FF, mask 110XXXXX
@@ -362,7 +362,7 @@ class Decoder
         $i         = $this->offset;
         $start     = $i;
 
-        switch ($str{$i}) {
+        switch ($str[$i]) {
             case '{':
                 $this->token = self::LBRACE;
                 break;
@@ -389,7 +389,7 @@ class Decoder
                         break;
                     }
 
-                    $chr = $str{$i};
+                    $chr = $str[$i];
 
                     if ($chr === '"') {
                         break;
@@ -406,7 +406,7 @@ class Decoder
                         break;
                     }
 
-                    $chr = $str{$i};
+                    $chr = $str[$i];
                     switch ($chr) {
                         case '"':
                             $result .= '"';
@@ -471,7 +471,7 @@ class Decoder
             return ($this->token);
         }
 
-        $chr = $str{$i};
+        $chr = $str[$i];
 
         if ($chr !== '-' && $chr !== '.' && ($chr < '0' || $chr > '9')) {
             throw new RuntimeException('Illegal Token');
@@ -521,7 +521,7 @@ class Decoder
             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');
         }
 
-        $bytes = (ord($utf16{0}) << 8) | ord($utf16{1});
+        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);
 
         switch (true) {
             case ((0x7F & $bytes) == $bytes):
