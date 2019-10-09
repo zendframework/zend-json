@@ -1,14 +1,13 @@
 docs_dir: docs/book
 site_dir: docs/html
-pages:
-    - index.md
-    - Intro: intro.md
+nav:
+    - Home: index.md
+    - Introduction: intro.md
     - Reference:
       - "Basic Usage": basics.md
       - "Advanced Usage": advanced.md
     - Migration:
       - "From v2 to v3": migration/v2-to-v3.md
 site_name: zend-json
-site_description: Zend\Json
+site_description: "De/Serialize JSON in PHP, including JavaScript expressions"
 repo_url: 'https://github.com/zendframework/zend-json'
-copyright: 'Copyright (c) 2005-2017 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
