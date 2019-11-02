@@ -11,7 +11,7 @@ $phpNative = Zend\Json\Json::decode($encodedValue);
 $json = Zend\Json\Json::encode($phpNative);
 ```
 
-> ## ext/json
+> ### ext/json
 >
 > By default, the above two calls will proxy to the `json_decode()` and
 > `json_encode()` functions of `ext/json`, which is bundled in default
