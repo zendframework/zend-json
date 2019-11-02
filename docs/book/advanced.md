@@ -34,7 +34,7 @@ decide how to decode JSON objects. If an object of a specified type should be
 created, it can be created in the developer code and populated with the values
 decoded using zend-json.
 
-## Encoding PHP objects
+## Encoding PHP Objects
 
 If you are encoding PHP objects, the default encoding mechanism can only
 access public properties of these objects. When a method `toJson()` is
