@@ -255,10 +255,6 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#extjson" class="toc__link">ext/json</a>
-                    </li>
-                
-                    <li class="toc__entry">
                         <a href="#pretty-printing-json" class="toc__link">Pretty-printing JSON</a>
                     </li>
                 
@@ -277,7 +273,7 @@ $phpNative = Zend\Json\Json::decode($encodedValue);
 // Encode a PHP value to JSON:
 $json = Zend\Json\Json::encode($phpNative);</code></pre></p>
 <blockquote>
-<h2 id="extjson">ext/json</h2>
+<h3>ext/json</h3>
 <p>By default, the above two calls will proxy to the <code>json_decode()</code> and
 <code>json_encode()</code> functions of <code>ext/json</code>, which is bundled in default
 installations of PHP. Using zend-json, however, ensures that the functionality
