@@ -1,5 +1,9 @@
 # zend-json
 
+> ## Repository abandoned 2019-12-31
+>
+> This repository has moved to laminas/laminas-json.
+
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-json.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-json)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-json/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-json?branch=master)
 
