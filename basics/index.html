@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="De/Serialize JSON in PHP, including JavaScript expressions">  
-    <link rel="canonical" href="https://docs.zendframework.com/zend-json/basics/">
+    <link rel="canonical" href="https://docs.zendframework.com/basics/">
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     <title>Basic Usage - zend-json - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../css/styles-5cfabd53ee.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body id="page-top">
 
@@ -198,9 +198,9 @@
     <div class="laminas-announcement">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
-            </div>
+            <div class="col-xs-12"><strong>
+                This package has moved. Visit its replacement, <a href="https://docs.laminas.dev/laminas-json/">laminas/laminas-json.</a>
+            </strong></div>
         </div>
     </div>
 </div>
@@ -267,11 +267,13 @@
     <h1 id="basic-usage">Basic Usage</h1>
 <p>Usage of zend-json involves using two public static methods:
 <code>Zend\Json\Json::encode()</code> and <code>Zend\Json\Json::decode()</code>.</p>
-<p> <pre class=codehilite><code class=language-php>// Decode a JSON value to PHP:
+<pre><code class="language-php">// Decode a JSON value to PHP:
 $phpNative = Zend\Json\Json::decode($encodedValue);
 
 // Encode a PHP value to JSON:
-$json = Zend\Json\Json::encode($phpNative);</code></pre></p>
+$json = Zend\Json\Json::encode($phpNative);
+</code></pre>
+
 <blockquote>
 <h3>ext/json</h3>
 <p>By default, the above two calls will proxy to the <code>json_decode()</code> and
@@ -287,11 +289,13 @@ customizations around pretty printing.</p>
 <code>Zend\Json\Json::encode()</code>, since it has no spacing or indentation. In order to
 make it easier, <code>Zend\Json\Json</code> allows you to pretty-print JSON data in the
 human-readable format with <code>Zend\Json\Json::prettyPrint()</code>.</p>
-<p> <pre class=codehilite><code class=language-php>// Encode it to return to the client:
+<pre><code class="language-php">// Encode it to return to the client:
 $json = Zend\Json\Json::encode($phpNative);
 if ($debug) {
     echo Zend\Json\Json::prettyPrint($json, array('indent' =&gt; ' '));
-}</code></pre></p>
+}
+</code></pre>
+
 <p>The second, optional, argument to <code>Zend\Json\Json::prettyPrint()</code> is an option
 array. Option <code>indent</code> allows providing an indentation string; by default, it
 uses four spaces.</p>
@@ -459,7 +463,7 @@ uses four spaces.</p>
             
             <div class="col-md-9">
                 <h4 class="footer__headline">Copyright</h4>
-                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+                <p>&copy; 2006-2020 by <a href="https://www.zend.com/">Zend</a> by <a href="https://www.perforce.com/">Perforce</a>.</p>
             </div>
 
             
@@ -467,10 +471,10 @@ uses four spaces.</p>
                 <h4 class="footer__headline">Support</h4>
                 <ul class="support__list">
                     <li class="support__list-item">
-                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                     </li>
                     <li class="support__list-item">
-                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                        <a href="https://laminas.dev/chat/" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
                     </li>
                     <li class="support__list-item">
                         <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
@@ -478,27 +482,28 @@ uses four spaces.</p>
                     <li class="support__list-item">
                         <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
                     </li>
-                    <li class="support__list-item">
-                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
+<nav class="cookie-bar navbar navbar-fixed-bottom navbar-default hidden">
+    <div class="container">
+        <p class="navbar-text">
+            We use cookies to allow you to dismiss dialogs such as the Laminas
+            Project notification.
+        </p>
+        <button type="button" class="cookie-button btn btn-default navbar-btn">Allow Cookies</button>
+    </div>
+</nav>
+
     <script>
         var base_url = '..',
             siteName = 'zend-json';
     </script>
-    <script src="../js/scripts-8d7ae56abf.js"></script>
-        <script src="../search/main.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
